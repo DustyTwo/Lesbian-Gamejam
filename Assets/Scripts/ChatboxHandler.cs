@@ -89,6 +89,10 @@ public class ChatboxHandler : MonoBehaviour
 				{
 					Close();
 					character.ReturnToNormal();
+					currentBranch = null;
+					currentIndex = 0;
+					textHandler.ResetText(); 
+					MenuHandler.ExitConversation();
 				}
 				else
 				{

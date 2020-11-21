@@ -302,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 413b54a622ed86e4e841911baeba905e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transitionAnimation: {fileID: 852831286}
-  _scene: 0
+  _animators: []
+  _scene: 1
 --- !u!1 &1035055962
 GameObject:
   m_ObjectHideFlags: 0

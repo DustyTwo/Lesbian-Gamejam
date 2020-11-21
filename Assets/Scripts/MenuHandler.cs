@@ -18,7 +18,14 @@ public class MenuHandler : MonoBehaviour
 
 	void Awake()
 	{
-		instance = this;	
+		if (instance != null)
+		{
+			Destroy(gameObject);
+		}
+		else
+		{
+			instance = this;	
+		}
 	}
 
 	static bool CheckState(State state)
@@ -43,5 +50,10 @@ public class MenuHandler : MonoBehaviour
 			instance.dialogueHandler.character = character;
 			instance.dialogueHandler.Open();
 		}
+	}
+
+	public static void ExitConversation()
+	{
+		gameState = State.Idle;
 	}
 }

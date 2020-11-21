@@ -41,7 +41,7 @@ public class CoolTextHandler : MonoBehaviour
         StartCoroutine(PrintRoutine(content, time, delay));
     }
 
-    void ResetText()
+    public void ResetText()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
