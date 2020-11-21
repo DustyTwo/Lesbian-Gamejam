@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class CoolTextHandler : MonoBehaviour
 {
 	[Multiline]
@@ -14,9 +13,12 @@ public class CoolTextHandler : MonoBehaviour
     public AudioClip printEvent;
     public new AudioSource audio;
 
+	public float spaceWidth = 20f;
 	HorizontalLayoutGroup[] rows;
 
-    IEnumerator Start()
+	public bool IsPrinting { get; private set; }
+
+    void Start()
     {
         canvas = GetComponent<CanvasGroup>();
 
@@ -31,15 +33,12 @@ public class CoolTextHandler : MonoBehaviour
 		}
 
         ResetText();
-
-		yield return new WaitForSeconds(2f);
-
-		Print(testText, 100f);
     }
 
-    public void Print(string content, float time)
+    public void Print(string content, float time, float delay = 0f)
     {
-        StartCoroutine(PrintRoutine(content, time));
+		IsPrinting = true;
+        StartCoroutine(PrintRoutine(content, time, delay));
     }
 
     void ResetText()
@@ -53,7 +52,7 @@ public class CoolTextHandler : MonoBehaviour
         }
     }
 
-    IEnumerator PrintRoutine(string content, float time)
+    IEnumerator PrintRoutine(string content, float time, float delay = 0f)
     {
         var rect = GetComponent<RectTransform>().rect;
         float xSize = (rect.size.x - rows[0].padding.left * 2);
@@ -64,7 +63,7 @@ public class CoolTextHandler : MonoBehaviour
 
         canvas.alpha = 1;
 
-        ResetText();
+		ResetText();
 
         yield return new WaitForSecondsRealtime(printDelay);
 
@@ -99,7 +98,7 @@ public class CoolTextHandler : MonoBehaviour
 				xSizeCurrent = 0;
 			}
 
-			spawn.Init();
+			spawn.Init(spaceWidth);
         }
 
 		for(int i = 0; i < rows.Length; i++)
@@ -132,19 +131,23 @@ public class CoolTextHandler : MonoBehaviour
 			}
 		}
 
-        yield return new WaitForSecondsRealtime(time);
+		if (time != 0)
+		{
+			yield return new WaitForSecondsRealtime(time);
 
-        float elapsedTime = 0;
+			float elapsedTime = 0;
 
-        while (elapsedTime < 1f)
-        {
-            canvas.alpha = Mathf.Lerp(canvas.alpha, 0, elapsedTime / 1);
+			while (elapsedTime < 1f)
+			{
+				canvas.alpha = Mathf.Lerp(canvas.alpha, 0, elapsedTime / 1);
 
-            elapsedTime += Time.unscaledDeltaTime;
-            yield return new WaitForEndOfFrame();
-        }
+				elapsedTime += Time.unscaledDeltaTime;
+				yield return new WaitForEndOfFrame();
+			}
 
-        canvas.alpha = 0;
+			canvas.alpha = 0;
+		}
 
+		IsPrinting = false;
     }
 }
