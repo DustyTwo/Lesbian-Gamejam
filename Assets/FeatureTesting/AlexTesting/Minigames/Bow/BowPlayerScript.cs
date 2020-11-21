@@ -70,7 +70,7 @@ public class BowIdleState : State<BowPlayerScript>
 {
     public override void EnterState(BowPlayerScript owner)
     {
-        Debug.Log("idle");
+        //Debug.Log("idle");
     }
 
     public override void ExitState(BowPlayerScript owner)
@@ -99,7 +99,8 @@ public class BowChargingState : State<BowPlayerScript>
     public override void EnterState(BowPlayerScript owner)
     {
         bowChargeTimer.Reset();
-        Debug.Log("start charge");
+        owner.GetComponent<SpriteRenderer>().color = Color.yellow;
+        //Debug.Log("start charge");
     }
 
     public override void ExitState(BowPlayerScript owner)
@@ -133,8 +134,9 @@ public class BowChargedState : State<BowPlayerScript>
     }
 
     public override void EnterState(BowPlayerScript owner)
-    { 
-        Debug.Log("charged");
+    {
+        owner.GetComponent<SpriteRenderer>().color = Color.blue;
+        //Debug.Log("charged");
     }
 
     public override void ExitState(BowPlayerScript owner)
@@ -144,8 +146,7 @@ public class BowChargedState : State<BowPlayerScript>
     {
         if (!Input.GetMouseButton(0))
         {
-            //skut
-            Debug.Log("POW!!!");
+            //Debug.Log("POW!!!");
 
             Shoot(owner);
 
@@ -162,11 +163,14 @@ public class BowChargedState : State<BowPlayerScript>
 
         if (_hitList.Count > 0)
         {
-            Debug.Log("target was hit " + _hitList.Count);
+            //Debug.Log("target was hit " + _hitList.Count);
+            owner.GetComponent<SpriteRenderer>().color = Color.green;
+
         }
         else
         {
-            Debug.Log("haha miss... noob");
+            //Debug.Log("haha miss... noob");
+            owner.GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 

@@ -6,9 +6,10 @@ public class BowTargetSpawnerScript : MonoBehaviour
 {
     [SerializeField] GameObject targetPrefab;
     [SerializeField] float targetRadius;
+    [SerializeField] float targetInitialYVelocity;
 
     Timer targetSpawnTimer;
-    [SerializeField] private float baseRespawnTime;
+    [SerializeField] private float baseSpawnTime;
 
     Camera mainCamera;
 
@@ -20,21 +21,12 @@ public class BowTargetSpawnerScript : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        targetSpawnTimer = new Timer(baseRespawnTime);
+        targetSpawnTimer = new Timer(baseSpawnTime);
 
         spawnPosXMin = mainCamera.orthographicSize * -Screen.width / Screen.height + targetRadius;
         spawnPosXMax = -spawnPosXMin;
         spawnPosY = -mainCamera.orthographicSize - targetRadius;
-
-        //spawnBounds[0] = new Vector2(mainCamera.orthographicSize * -Screen.width / Screen.height + targetRadius, -mainCamera.orthographicSize - targetRadius);
-        //spawnBounds[1] = new Vector2(-spawnBounds[0].x, spawnBounds[0].y);
     }
-
-    void Start()
-    {
-
-    }
-
 
     void Update()
     {
@@ -46,9 +38,10 @@ public class BowTargetSpawnerScript : MonoBehaviour
         }
     }
 
-
     void SpawnTarget()
     {
-        Instantiate(targetPrefab, new Vector3(Random.Range(spawnPosXMin, spawnPosXMax), spawnPosY), Quaternion.identity);
+        BowTargetScipt bowTargetScipt = Instantiate(targetPrefab, new Vector3(Random.Range(spawnPosXMin, spawnPosXMax), spawnPosY), Quaternion.identity).GetComponent<BowTargetScipt>();
+
+        bowTargetScipt.Initialize(new Vector2(0,targetInitialYVelocity));
     }
 }
