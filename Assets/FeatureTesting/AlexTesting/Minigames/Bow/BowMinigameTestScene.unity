@@ -168,7 +168,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetPrefab: {fileID: 1325539700209119931, guid: 3712cb50c381809459ae94d2695cd5ac, type: 3}
   targetRadius: 1
-  targetInitialYVelocity: 10
+  targetInitialVelocityMinMaxX: {x: -2, y: 2}
+  targetInitialVelocityMinMaxY: {x: 8, y: 10}
   baseSpawnTime: 1
 --- !u!1 &1632114551
 GameObject:

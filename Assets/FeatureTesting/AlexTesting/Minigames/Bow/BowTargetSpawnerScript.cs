@@ -6,7 +6,9 @@ public class BowTargetSpawnerScript : MonoBehaviour
 {
     [SerializeField] GameObject targetPrefab;
     [SerializeField] float targetRadius;
-    [SerializeField] float targetInitialYVelocity;
+
+    [SerializeField] Vector2 targetInitialVelocityMinMaxX;
+    [SerializeField] Vector2 targetInitialVelocityMinMaxY;
 
     Timer targetSpawnTimer;
     [SerializeField] private float baseSpawnTime;
@@ -42,6 +44,6 @@ public class BowTargetSpawnerScript : MonoBehaviour
     {
         BowTargetScipt bowTargetScipt = Instantiate(targetPrefab, new Vector3(Random.Range(spawnPosXMin, spawnPosXMax), spawnPosY), Quaternion.identity).GetComponent<BowTargetScipt>();
 
-        bowTargetScipt.Initialize(new Vector2(0,targetInitialYVelocity));
+        bowTargetScipt.Initialize(new Vector2(Random.Range(targetInitialVelocityMinMaxX.x, targetInitialVelocityMinMaxX.y), Random.Range(targetInitialVelocityMinMaxY.x, targetInitialVelocityMinMaxY.y)));
     }
 }
