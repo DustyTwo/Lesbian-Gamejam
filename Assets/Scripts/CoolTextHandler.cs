@@ -20,12 +20,21 @@ public class CoolTextHandler : MonoBehaviour
     {
         canvas = GetComponent<CanvasGroup>();
 
-        rows = GetComponentsInChildren<HorizontalLayoutGroup>();
+		rows = new HorizontalLayoutGroup[transform.childCount];
+
+		for(int i = 0; i < transform.childCount; i++)
+		{
+			if(transform.GetChild(i).TryGetComponent<HorizontalLayoutGroup>(out var row))
+			{
+				rows[i] = row;
+			}
+		}
+
         ResetText();
 
 		yield return new WaitForSeconds(2f);
 
-		Print(testText, 5f);
+		Print(testText, 100f);
     }
 
     public void Print(string content, float time)
@@ -47,11 +56,10 @@ public class CoolTextHandler : MonoBehaviour
     IEnumerator PrintRoutine(string content, float time)
     {
         var rect = GetComponent<RectTransform>().rect;
-        var layout = GetComponentInChildren<HorizontalLayoutGroup>();
-        float xSize = (rect.size.x - layout.padding.left * 2);
+        float xSize = (rect.size.x - rows[0].padding.left * 2);
         string nextWord = "";
         float xSizeCurrent = 0;
-        float xIncrement = layout.spacing;
+        float xIncrement = rows[0].spacing;
         int currentRow = 0;
 
         canvas.alpha = 1;
@@ -62,9 +70,9 @@ public class CoolTextHandler : MonoBehaviour
 
         for (int i = 0; i < content.Length; i++)
         {
-            var spawn = Instantiate(textTemplate, rows[currentRow].transform).GetComponentInChildren<TMPro.TextMeshProUGUI>();
-            spawn.text = content[i].ToString();
-            spawn.gameObject.name = spawn.text;
+            var spawn = Instantiate(textTemplate, rows[currentRow].transform).GetComponentInChildren<LetterData>();
+            spawn.text.text = content[i].ToString();
+            spawn.gameObject.name = spawn.text.text;
 
             xSizeCurrent += xIncrement;
 
@@ -85,25 +93,44 @@ public class CoolTextHandler : MonoBehaviour
                     xSizeCurrent = 0;
                 }
             }
+			if (content[i] == '\n')
+			{
+				currentRow++;
+				xSizeCurrent = 0;
+			}
+
+			spawn.Init();
         }
 
-        for (int i = 0; i < transform.childCount; i++)
+		for(int i = 0; i < rows.Length; i++)
+		{
+			rows[i].childScaleWidth = false;			
+		}
+
+		yield return new WaitForEndOfFrame();
+
+		for(int i = 0; i < rows.Length; i++)
+		{
+			rows[i].childScaleWidth = true;
+		}
+
+		for (int i = 0; i < transform.childCount; i++)
         {
-            for (int ii = 0; ii < transform.GetChild(i).childCount; ii++)
-            {
-                transform.GetChild(i).GetChild(ii).GetComponent<Animator>().enabled = true;
+			for(int ii = 0; ii < transform.GetChild(i).childCount; ii++)
+			{
+				transform.GetChild(i).GetChild(ii).GetComponent<Animator>().enabled = true;
 
-                if (!transform.GetChild(i).GetChild(ii).name.Equals(" "))
-                {
-                    if (ii % 3 == 0)
-                    {
+				if(!transform.GetChild(i).GetChild(ii).name.Equals(" "))
+				{
+					if(ii % 3 == 0)
+					{
 						audio.PlayOneShot(printEvent);
-                    }
+					}
 
-                    yield return new WaitForSeconds(printDelay);
-                }
-            }
-        }
+					yield return new WaitForSeconds(printDelay);
+				}
+			}
+		}
 
         yield return new WaitForSecondsRealtime(time);
 
