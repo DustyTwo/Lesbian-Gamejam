@@ -13,6 +13,8 @@ public class BowTargetSpawnerScript : MonoBehaviour
     Timer targetSpawnTimer;
     [SerializeField] private float baseSpawnTime;
 
+    [SerializeField] BowComboCounter bowComboCounter;
+
     Camera mainCamera;
 
     float spawnPosXMin;
@@ -42,8 +44,25 @@ public class BowTargetSpawnerScript : MonoBehaviour
 
     void SpawnTarget()
     {
-        BowTargetScipt bowTargetScipt = Instantiate(targetPrefab, new Vector3(Random.Range(spawnPosXMin, spawnPosXMax), spawnPosY), Quaternion.identity).GetComponent<BowTargetScipt>();
+        Vector2 spawnPosition = new Vector2(Random.Range(spawnPosXMin, spawnPosXMax), spawnPosY);
+        BowTargetScipt bowTargetScipt = Instantiate(targetPrefab, spawnPosition, Quaternion.identity).GetComponent<BowTargetScipt>();
 
-        bowTargetScipt.Initialize(new Vector2(Random.Range(targetInitialVelocityMinMaxX.x, targetInitialVelocityMinMaxX.y), Random.Range(targetInitialVelocityMinMaxY.x, targetInitialVelocityMinMaxY.y)));
+        //Vector2 launchVector = new Vector2(Random.Range(targetInitialVelocityMinMaxX.x, targetInitialVelocityMinMaxX.y), 
+        //            Random.Range(targetInitialVelocityMinMaxY.x, targetInitialVelocityMinMaxY.y));
+
+        
+        Vector2 launchVector = new Vector2(0, spawnPosition.y) - spawnPosition;
+
+        launchVector += Vector2.ClampMagnitude(-launchVector.normalized * 3f, launchVector.magnitude);
+
+        launchVector = Vector2.ClampMagnitude(launchVector, 2f);
+
+        launchVector += new Vector2(Random.Range(targetInitialVelocityMinMaxX.x, targetInitialVelocityMinMaxX.y), Random.Range(targetInitialVelocityMinMaxY.x, targetInitialVelocityMinMaxY.y));
+
+        bowTargetScipt.Initialize(launchVector, bowComboCounter);
+
+        print(launchVector.x);
+
+        //bowTargetScipt.Initialize(new Vector2(Random.Range(targetInitialVelocityMinMaxX.x, targetInitialVelocityMinMaxX.y), Random.Range(targetInitialVelocityMinMaxY.x, targetInitialVelocityMinMaxY.y)));
     }
 }
