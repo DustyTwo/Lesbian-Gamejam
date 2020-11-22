@@ -22,7 +22,6 @@ public class ChatboxHandler : MonoBehaviour
 	private CharacterHolder currentCharacter;
 
 	Vector3 ClosedOffset { get => startPos + Vector3.right * closedOffset; }
-
 	DialogueData CurrentDialogue { get => currentBranch.dialogues[currentIndex]; }
 
 	private void Awake()
@@ -40,9 +39,12 @@ public class ChatboxHandler : MonoBehaviour
 	public void OpenAndStartConvo()
 	{
 		characters = FindObjectsOfType<CharacterHolder>();
-	
+		SetCharacter();
+
+		nameText.text = "";
+
 		transform.DOMove(startPos, transitionTime).SetEase(Ease.OutBack).OnComplete(() => {
-			StartDialogue();
+			StartCoroutine(StartDialogue());
 			active = true;
 		});
 	}
@@ -59,6 +61,10 @@ public class ChatboxHandler : MonoBehaviour
 
 		if(nextCharacter == Character.Player || nextCharacter == Character.Narrator)
 		{
+			if (nextCharacter == Character.Player)
+			{
+				MenuHandler.player.MoveToFront();
+			}
 			return;
 		}
 
@@ -69,6 +75,7 @@ public class ChatboxHandler : MonoBehaviour
 				if (character.character == currentBranch.dialogues[currentIndex].character)
 				{
 					currentCharacter = character;
+					currentCharacter.MoveToFront();
 					break;
 				}
 			}
@@ -91,20 +98,31 @@ public class ChatboxHandler : MonoBehaviour
 		}
 	}
 
-	void StartDialogue()
+	IEnumerator StartDialogue()
 	{
 		SetCharacter();
+
+		yield return new WaitForSeconds(.25f);
 
 		textHandler.Print(CurrentDialogue.text, 0, 1.5f);
 
 		var nameString = CurrentDialogue.character.ToString();
 		var doShake = CurrentDialogue.doShake;
-		var isPlayer = CurrentDialogue.isPlayer;
+		var isPlayer = CurrentDialogue.character == Character.Player;
+		var isNarrator = CurrentDialogue.character == Character.Narrator;
 
-		if(isPlayer)
+		if(isPlayer || isNarrator)
 		{
 			if(doShake)
+			{
 				CameraManager.DoShake();
+				MenuHandler.player.DoShake();
+			}
+
+			if(!isNarrator)
+			{
+				MenuHandler.player.DoBoop();
+			}
 
 			nameString = "You";
 		}
@@ -148,6 +166,9 @@ public class ChatboxHandler : MonoBehaviour
 					{
 						currentCharacter.ReturnToNormal();
 					}
+
+					MenuHandler.player.ReturnToNormal();
+					
 					currentBranch = null;
 					currentIndex = 0;
 					textHandler.ResetText(); 
@@ -155,7 +176,7 @@ public class ChatboxHandler : MonoBehaviour
 				}
 				else
 				{
-					StartDialogue();
+					StartCoroutine(StartDialogue());
 				}
 			}
 		}

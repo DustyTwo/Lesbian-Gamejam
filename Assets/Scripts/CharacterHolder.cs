@@ -51,7 +51,7 @@ public class CharacterHolder : MonoBehaviour
 			image.color = color;
 		}
 
-		transform.localScale = Vector3.Lerp(transform.localScale, !inFront ? startScale : startScale * largeScale, Time.deltaTime * 8f);
+		transform.localScale = Vector3.Lerp(transform.localScale, !inFront ? startScale : startScale * largeScale, Time.deltaTime * 12f);
 	}
 
 	private void OnMouseDown()
@@ -62,10 +62,16 @@ public class CharacterHolder : MonoBehaviour
 	public void MoveToFront()
 	{
 		var pos = MenuHandler.instance.characterPoint.position;
+
+		if (character == Character.Player)
+		{
+			pos = MenuHandler.instance.playerPoint.position;			
+		}
+
 		pos = Camera.main.ScreenToWorldPoint(pos);
 		pos.z = 0;
 
-		transform.DOMove(pos, 0.5f);
+		transform.DOMove(pos, 0.3f);
 		inFront = true;
 	}
 
@@ -76,8 +82,7 @@ public class CharacterHolder : MonoBehaviour
 
 	public void ReturnToNormal()
 	{
-		Debug.Log("Moving to normal");
-		transform.DOMove(startPos, 1f);
+		transform.DOMove(startPos, .4f);
 		inFront = false;
 	}
 

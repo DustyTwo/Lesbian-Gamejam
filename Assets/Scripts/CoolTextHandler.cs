@@ -57,7 +57,6 @@ public class CoolTextHandler : MonoBehaviour
     {
         var rect = GetComponent<RectTransform>().rect;
         float xSize = (rect.size.x - rows[0].padding.left * 2);
-		Debug.Log(xSize);
         string nextWord = "";
         float xSizeCurrent = 0;
         float xIncrement = 20;
