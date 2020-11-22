@@ -11,7 +11,6 @@ public enum Emotion
 [Serializable]
 public struct DialogueData
 {
-	public bool isPlayer;
 	public bool doShake;
 	public Emotion emotion;
 	public Character character;

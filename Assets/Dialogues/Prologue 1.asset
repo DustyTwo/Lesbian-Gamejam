@@ -10,50 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49334945631827e49b34ae207b939a8b, type: 3}
-  m_Name: ArcherIntro
+  m_Name: Prologue 1
   m_EditorClassIdentifier: 
   character: 0
   dialogues:
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: Hi I am tlaking now
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 1
+    text: Hi I am tlaking now
+    events: []
+  - doShake: 0
     emotion: 0
     character: 0
-    text: say aaah
+    text: Hi I am tlaking now
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 3
-    text: Aaaa
+    text: Hi I am tlaking now
     events: []
-  - isPlayer: 0
-    doShake: 1
+  - doShake: 0
     emotion: 0
-    character: 0
-    text: wider ;)
-    events: []
-  - isPlayer: 1
-    doShake: 1
-    emotion: 0
-    character: 3
-    text: AAAAAAAA
-    events: []
-  - isPlayer: 0
-    doShake: 0
-    emotion: 0
-    character: 0
-    text: huh?
-    events: []
-  - isPlayer: 1
-    doShake: 1
-    emotion: 0
-    character: 3
-    text: I AM SAYING AAAAAAA
-    events: []
-  - isPlayer: 0
-    doShake: 0
-    emotion: 0
-    character: 0
-    text: ok
+    character: 2
+    text: Hi I am tlaking now
     events: []
   nextBranches: []

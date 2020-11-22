@@ -11,10 +11,14 @@ public class MenuHandler : MonoBehaviour
 	}
 
 	public Transform characterPoint;
+	public Transform playerPoint;
+	public GameObject playerPrefab;
 	public static MenuHandler instance;
 	public ChatboxHandler dialogueHandler;
 	public Transform textWindow;
 	private static State gameState;
+
+	public static CharacterHolder player;
 
 	void Awake()
 	{
@@ -26,6 +30,10 @@ public class MenuHandler : MonoBehaviour
 		{
 			instance = this;	
 		}
+
+		var pos = Camera.main.ScreenToWorldPoint(playerPoint.position + Vector3.right * 500f);
+		player = Instantiate(playerPrefab, pos, Quaternion.identity).GetComponent<CharacterHolder>();
+		DontDestroyOnLoad(player);
 	}
 
 	static bool CheckState(State state)
