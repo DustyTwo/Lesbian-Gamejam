@@ -35,20 +35,12 @@ public class MenuHandler : MonoBehaviour
 
 	public static void StartConversation(DialogueBranch branch, CharacterHolder character)
 	{
-		var pos = instance.characterPoint.position;
-		pos = Camera.main.ScreenToWorldPoint(pos);
-		pos.z = 0;
-
-		character.transform.DOMove(pos, 0.7f);
-		character.transform.DOScale(character.largeScale, 1f);
-
 		if (!CheckState(State.Conversation))
 		{
 			gameState = State.Conversation;
 
 			instance.dialogueHandler.currentBranch = branch;
-			instance.dialogueHandler.character = character;
-			instance.dialogueHandler.Open();
+			instance.dialogueHandler.OpenAndStartConvo();
 		}
 	}
 
