@@ -231,17 +231,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 229741988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daaddb52b36373145a9916c75669a1ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 479b7d5cee106a1419641006bec027d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   values:
-  - _name: Health
+  - _name: Stat1
     _value: 255
-  - _name: Attack
-    _value: 123
-  - _name: Defence
-    _value: 205
-  chartMaterial: {fileID: 2100000, guid: 4c144d31c6942674cae9006aacee6b72, type: 2}
+  - _name: Stat2
+    _value: 255
+  - _name: Stat3
+    _value: 255
+  chartMaterial: {fileID: 2100000, guid: fdd4514c7899217408b520e785429c25, type: 2}
   canvasRenderer: {fileID: 229741991}
   AnimationFraction: 0
 --- !u!222 &229741991
@@ -262,7 +262,7 @@ Animator:
   m_GameObject: {fileID: 229741988}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4c642a8190c402e46a028b8235be89f5, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5d4db7f2308ce44c9065840a72efee8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
