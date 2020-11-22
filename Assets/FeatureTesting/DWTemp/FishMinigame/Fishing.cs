@@ -154,14 +154,17 @@ public class ReelInState : State<Fishing>
                 owner.body.AddForce(velocity * owner.reelInSpeed);
             }
         }
-        else if (owner.body.position.y <= FishGameManager.Instance.bounds.down - 0) //0 = radius
-        {
-            owner.stateMachine.ChangeState(new FailState());
-        }
         else
         {
             owner.stateMachine.ChangeState(new SuccessState());
         }
+
+        if (owner.body.position.y <= FishGameManager.Instance.bounds.down)
+        {
+            owner.stateMachine.ChangeState(new FailState());
+        }
+        Debug.Log(owner.body.position.y);
+        Debug.Log(FishGameManager.Instance.bounds.down + owner.transform.localScale.y);
     }
 }
 public class AnglingState : State<Fishing>
