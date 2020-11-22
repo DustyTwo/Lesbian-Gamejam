@@ -1932,7 +1932,7 @@ RectTransform:
   m_GameObject: {fileID: 6612714531880535144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.83586, y: 0.83586, z: 0.83586}
   m_Children:
   - {fileID: 6612714532658322691}
   - {fileID: 6612714530927928853}
@@ -1943,7 +1943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 302.8, y: 264.8}
+  m_AnchoredPosition: {x: 259, y: 199}
   m_SizeDelta: {x: 1265.6414, y: 398.46216}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6612714531880535149
@@ -2691,8 +2691,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testText: "I am saying AAAAAAA                       \nWhat                   \nAAAAAAA                    "
   textTemplate: {fileID: 8259657563711363094, guid: f6c24a0edb4d0dc4c80cef5370f3c03c, type: 3}
-  printDelay: 0.02
-  dotDelay: 0.5
+  printDelay: 0.01
+  dotDelay: 0.25
   printEvent: {fileID: 8300000, guid: 559a25e82938cee4080774a0c46b91a3, type: 3}
   audio: {fileID: 6612714532658322690}
   spaceWidth: 20

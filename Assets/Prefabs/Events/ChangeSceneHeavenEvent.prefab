@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1f80b13350af84faa71ae7c93a79a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 4
+  scene: 7
   delay: 1
   forceCloseDialogue: 1

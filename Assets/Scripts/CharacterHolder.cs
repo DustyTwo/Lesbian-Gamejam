@@ -96,7 +96,7 @@ public class CharacterHolder : MonoBehaviour
 
 	public void ReturnToNormal()
 	{
-		image.sortingOrder = 0;
+		image.sortingOrder = 1;
 
 		transform.DOMove(startPos, .4f);
 		inFront = false;

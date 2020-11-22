@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4448991993806064006}
   - component: {fileID: 8094510942333241787}
   m_Layer: 0
-  m_Name: ChangeScenePostHeavenEvent
+  m_Name: ChangeSceneCastleEvent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1f80b13350af84faa71ae7c93a79a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 8
+  scene: 4
   delay: 1
   forceCloseDialogue: 1

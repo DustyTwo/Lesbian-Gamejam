@@ -182,7 +182,7 @@ MonoBehaviour:
     events: []
   - doShake: 1
     emotion: 0
-    character: 1
+    character: 2
     text: "Shut up! You better be careful with that silvertongue of yours. Or I\u2019ll
       cut it off!"
     events: []
