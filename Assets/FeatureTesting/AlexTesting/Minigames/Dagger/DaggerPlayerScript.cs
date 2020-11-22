@@ -7,8 +7,6 @@ public class DaggerPlayerScript : MonoBehaviour
     [SerializeField] public LayerMask entryTargetLayerMask;
     [SerializeField] public LayerMask allTargetsLayerMask;
 
-    [SerializeField] public float maxSliceTime;
-
     [HideInInspector] public Camera mainCamera;
 
 
@@ -16,7 +14,7 @@ public class DaggerPlayerScript : MonoBehaviour
     public StateMachine<DaggerPlayerScript> daggerStateMachine;
 
     public DaggerIdleState daggerIdleState;
-    public DaggerSlicingState daggerSlicingState;
+    //public DaggerSlicingState daggerSlicingState;
     #endregion
 
     private void Awake()
@@ -27,7 +25,7 @@ public class DaggerPlayerScript : MonoBehaviour
         daggerStateMachine = new StateMachine<DaggerPlayerScript>(this);
 
         daggerIdleState = new DaggerIdleState();
-        daggerSlicingState = new DaggerSlicingState();
+        //daggerSlicingState = new DaggerSlicingState();
         #endregion
     }
 
@@ -39,12 +37,14 @@ public class DaggerPlayerScript : MonoBehaviour
     void Update()
     {
         transform.position = GetMouseWorldPosition();
-    }
 
-    private void FixedUpdate()
-    {
         daggerStateMachine.Update();
     }
+
+    //private void FixedUpdate()
+    //{
+    //    daggerStateMachine.Update();
+    //}
 
     #region Usefull fuctions
     Vector3 GetMouseWorldPosition()
@@ -77,12 +77,12 @@ public class DaggerIdleState : State<DaggerPlayerScript>
             //kolla ifall man träffar de andra och isåfall 
 
             _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.entryTargetLayerMask);
+
             //if (Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, out _hit, 5f, owner.entryTargetLayerMask))
             if (_hit)
             {
                 Debug.Log("entry hit");
-                owner.daggerStateMachine.ChangeState(owner.daggerSlicingState);
-
+                owner.daggerStateMachine.ChangeState(new DaggerSlicingState(_hit.collider.gameObject.GetComponentInParent<DaggerSliceScript>()));
             }
 
             //kolla om man träffar början av the path
@@ -94,17 +94,19 @@ public class DaggerIdleState : State<DaggerPlayerScript>
 public class DaggerSlicingState : State<DaggerPlayerScript>
 {
     RaycastHit2D _hit;
-    Timer timer;
-    public override void EnterState(DaggerPlayerScript owner)
+    DaggerSliceScript _slice;
+    public DaggerSlicingState(DaggerSliceScript slice)
     {
-        Debug.Log("slice time");
-        timer = new Timer(owner.maxSliceTime);
+        _slice = slice;
     }
+
+    public override void EnterState(DaggerPlayerScript owner) { }
 
     public override void ExitState(DaggerPlayerScript owner) { }
 
     public override void UpdateState(DaggerPlayerScript owner)
     {
+        //ändra till cirkel och fixa så det stödjer att göra flera slices samtidigt
         _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask);
 
         if (_hit)
@@ -112,28 +114,26 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
             if (_hit.collider.gameObject.CompareTag("Dagger Slice End"))
             {
                 Debug.Log("GOOD SLICE !!");
-                //add score
-                //add combo
+                owner.GetComponent<SpriteRenderer>().color = Color.green;
+
+                _slice.SliceComplete();
+
                 owner.daggerStateMachine.ChangeState(owner.daggerIdleState);
-            }
-            else
-            {
-                timer += Time.fixedDeltaTime;
-                if (timer.Expired)
-                {
-                    Debug.Log("2 slow");
-                    //reset combo
-                    owner.daggerStateMachine.ChangeState(owner.daggerIdleState);
-                }
             }
         }
         else
         {
+            //fixa någon grace period så det blir mindre bs
+
             Debug.Log("DOOOOHH I MISSED >:(");
-            //reset combo
+            owner.GetComponent<SpriteRenderer>().color = Color.red;
+
+            //gör en lite wiggel och sen att den faller ner och fadear ut, sen förstörs
+
+            _slice.SliceFailed();
+
             owner.daggerStateMachine.ChangeState(owner.daggerIdleState);
         }
-        
 
 
         //raycasta kontinuelingt och kolla vad man träffar
