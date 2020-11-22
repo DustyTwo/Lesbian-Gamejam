@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class CoolTextHandler : MonoBehaviour
 {
-	[Multiline]
+	[TextArea(4, 10)]
 	public string testText;
     public GameObject textTemplate;
     public float printDelay = 0.02f;
+    public float dotDelay = 0.5f;
     CanvasGroup canvas;
     public AudioClip printEvent;
     public new AudioSource audio;
@@ -41,7 +42,7 @@ public class CoolTextHandler : MonoBehaviour
         StartCoroutine(PrintRoutine(content, time, delay));
     }
 
-    void ResetText()
+    public void ResetText()
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -56,9 +57,10 @@ public class CoolTextHandler : MonoBehaviour
     {
         var rect = GetComponent<RectTransform>().rect;
         float xSize = (rect.size.x - rows[0].padding.left * 2);
+		Debug.Log(xSize);
         string nextWord = "";
         float xSizeCurrent = 0;
-        float xIncrement = rows[0].spacing;
+        float xIncrement = 20;
         int currentRow = 0;
 
         canvas.alpha = 1;
@@ -127,6 +129,20 @@ public class CoolTextHandler : MonoBehaviour
 					}
 
 					yield return new WaitForSeconds(printDelay);
+				}
+
+				switch(transform.GetChild(i).GetChild(ii).name)
+				{
+					case ".":
+					case "!":
+					case "?":
+						yield return new WaitForSeconds(dotDelay);
+						break;
+					case ",":
+						yield return new WaitForSeconds(dotDelay * .25f);
+						break;
+					default:
+						break;
 				}
 			}
 		}

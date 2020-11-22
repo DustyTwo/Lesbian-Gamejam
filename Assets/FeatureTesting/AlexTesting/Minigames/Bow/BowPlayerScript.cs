@@ -5,8 +5,10 @@ using UnityEngine;
 public class BowPlayerScript : MonoBehaviour
 {
     [SerializeField] private float chargeTime;
-    [SerializeField] private float arrowRadius;
-    //ändra sen
+    [SerializeField] public GameObject arrowPrefab;
+    [SerializeField] public float arrowRadius;
+    [SerializeField] public float arrowTravelTime;
+
     [SerializeField] public LayerMask targetsLayerMask;
 
     Timer bowChargeTimer;
@@ -23,15 +25,17 @@ public class BowPlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        //varför är timern här?
         bowChargeTimer = new Timer(chargeTime);
         mainCamera = Camera.main;
 
-
+        #region State machine saker
         bowStateMachine = new StateMachine<BowPlayerScript>(this);
 
         bowIdleState = new BowIdleState();
         bowChargingState = new BowChargingState(chargeTime);
-        bowChargedState = new BowChargedState(arrowRadius, mainCamera.transform.forward, targetsLayerMask);
+        bowChargedState = new BowChargedState(arrowTravelTime, arrowRadius, mainCamera.transform.forward, targetsLayerMask, arrowPrefab);
+        #endregion
     }
 
     private void Start()
@@ -42,11 +46,9 @@ public class BowPlayerScript : MonoBehaviour
 
     void Update()
     {
-        //ändra så spriten är ett child object så man kan sätta den nice 
         transform.position = GetMouseWorldPosition();
 
         bowStateMachine.Update();
-
     }
 
     #region Usefull fuctions
@@ -78,6 +80,7 @@ public class BowIdleState : State<BowPlayerScript>
 
     public override void UpdateState(BowPlayerScript owner)
     {
+        //(polish) lägg till en kort tid där man kan släppa utan att fastna i ett skott
         if (Input.GetMouseButtonDown(0))
         {
             owner.bowStateMachine.ChangeState(owner.bowChargingState);
@@ -121,16 +124,19 @@ public class BowChargingState : State<BowPlayerScript>
 
 public class BowChargedState : State<BowPlayerScript>
 {
+    float _arrowTravelTime;
     float _arrowRadius;
     Vector3 _cameraForward;
     LayerMask _targetsLayerMask;
-    List<RaycastHit2D> _hitList;
+    GameObject _arrowPrefab;
 
-    public BowChargedState(float arrowRadius, Vector3 cameraForward, LayerMask targetsLayerMask)
+    public BowChargedState(float arrowTravelTime, float arrowRadius, Vector3 cameraForward, LayerMask targetsLayerMask, GameObject arrowPrefab)
     {
+        _arrowTravelTime = arrowTravelTime;
         _arrowRadius = arrowRadius;
         _cameraForward = cameraForward;
         _targetsLayerMask = targetsLayerMask;
+        _arrowPrefab = arrowPrefab;
     }
 
     public override void EnterState(BowPlayerScript owner)
@@ -156,25 +162,12 @@ public class BowChargedState : State<BowPlayerScript>
 
     private void Shoot(BowPlayerScript owner)
     {
+        BowArrowScript bowArrowScript = Object.Instantiate(_arrowPrefab, owner.transform.position, Quaternion.identity).GetComponent<BowArrowScript>();
 
-        //if (Physics2D.CircleCast(owner.transform.position, _arrowRadius, _cameraForward, owner.targetsLayerMask, _hitList, 5f))
-
-        _hitList = new List<RaycastHit2D>(Physics2D.CircleCastAll(owner.transform.position, _arrowRadius, _cameraForward, 5f, _targetsLayerMask));
-
-        if (_hitList.Count > 0)
-        {
-            //Debug.Log("target was hit " + _hitList.Count);
-            owner.GetComponent<SpriteRenderer>().color = Color.green;
-
-        }
-        else
-        {
-            //Debug.Log("haha miss... noob");
-            owner.GetComponent<SpriteRenderer>().color = Color.red;
-        }
+        bowArrowScript.Initialize(_arrowTravelTime, _arrowRadius, _cameraForward, _targetsLayerMask);
+        owner.GetComponent<SpriteRenderer>().color = Color.green;
     }
-
 }
-//lägga till shooting state?
+//lägga till shooting state? no i dont tink sååååå
 #endregion
 

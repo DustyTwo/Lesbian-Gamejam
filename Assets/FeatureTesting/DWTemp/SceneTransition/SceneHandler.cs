@@ -3,15 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneHandler : MonoBehaviour
-{
-    public enum SceneIndexes
+	[System.Serializable]
+	public enum SceneIndexes
     {
         //Title,
         SceneTest1 = 0,
         SceneTest2,
+		TrainingGrounds,
+		Lake,
+		Castle,
+		Garden
     }
 
+public class SceneHandler : MonoBehaviour
+{
     [SerializeField] private Animator[] _animators;
     [SerializeField] private SceneIndexes _scene;
 
@@ -22,7 +27,7 @@ public class SceneHandler : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -42,23 +47,22 @@ public class SceneHandler : MonoBehaviour
         }
     }
 
-
-    public void LoadScene(SceneIndexes sceneBuildIndex, int animationIndex = 0)
-    {
-        LoadScene((int)sceneBuildIndex, animationIndex);
-    }
-
-    public void LoadScene(int sceneBuildIndex, int animationIndex = 0)
+    public bool LoadScene(SceneIndexes sceneBuildIndex, int animationIndex = 0)
     {
         if (SceneManager.GetActiveScene().buildIndex != (int)sceneBuildIndex &&
-            SceneUtility.GetScenePathByBuildIndex(sceneBuildIndex) != string.Empty &&
-            animationIndex >= 0 && animationIndex < _animators.Length)
-            StartCoroutine(ILoadScene(sceneBuildIndex, animationIndex));
-        else
+			animationIndex >= 0 && animationIndex < _animators.Length)
+		{
+			StartCoroutine(ILoadScene(sceneBuildIndex, animationIndex));
+			return true;
+		}
+		
+        else{
             Debug.LogWarning("Trying to load identical scene or reach a scene that does not exist!", this);
+			return false;
+		}
     }
 
-    private IEnumerator ILoadScene(int sceneBuildIndex, int animationIndex = 0)
+    private IEnumerator ILoadScene(SceneIndexes sceneBuildIndex, int animationIndex = 0)
     {
         Animator anim = _animators[animationIndex];
         float timer = 0;
@@ -73,7 +77,7 @@ public class SceneHandler : MonoBehaviour
         // Start animation
         anim.SetTrigger("Start");
 
-        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(sceneBuildIndex, LoadSceneMode.Single);
+        AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(sceneBuildIndex.ToString(), LoadSceneMode.Single);
         asyncLoadLevel.allowSceneActivation = false;
 
 

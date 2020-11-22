@@ -18,8 +18,12 @@ public class ChatboxHandler : MonoBehaviour
 
 	int currentIndex = 0;
 	private float timeSinceStart;
+	private CharacterHolder[] characters;
+	private CharacterHolder currentCharacter;
 
 	Vector3 ClosedOffset { get => startPos + Vector3.right * closedOffset; }
+
+	DialogueData CurrentDialogue { get => currentBranch.dialogues[currentIndex]; }
 
 	private void Awake()
 	{
@@ -33,8 +37,10 @@ public class ChatboxHandler : MonoBehaviour
 		transform.position = ClosedOffset;
 	}
 
-	public void Open()
+	public void OpenAndStartConvo()
 	{
+		characters = FindObjectsOfType<CharacterHolder>();
+	
 		transform.DOMove(startPos, transitionTime).SetEase(Ease.OutBack).OnComplete(() => {
 			StartDialogue();
 			active = true;
@@ -47,13 +53,53 @@ public class ChatboxHandler : MonoBehaviour
 		transform.DOMove(ClosedOffset, transitionTime * 1f).SetEase(Ease.InBack);
 	}
 
+	void SetCharacter()
+	{
+		var nextCharacter = currentBranch.dialogues[currentIndex].character;
+
+		if(nextCharacter == Character.Player || nextCharacter == Character.Narrator)
+		{
+			return;
+		}
+
+		if (currentCharacter == null)
+		{
+			foreach(var character in characters)
+			{
+				if (character.character == currentBranch.dialogues[currentIndex].character)
+				{
+					currentCharacter = character;
+					break;
+				}
+			}
+
+			currentCharacter = characters[0];
+		}
+
+		if(currentBranch.dialogues[currentIndex].character != currentCharacter.character)
+		{
+			currentCharacter.ReturnToNormal();
+
+			for(int i = 0; i < characters.Length; i++)
+			{
+				if(characters[i].character == currentBranch.dialogues[currentIndex].character)
+				{
+					currentCharacter = characters[i];
+					currentCharacter.MoveToFront();
+				}
+			}
+		}
+	}
+
 	void StartDialogue()
 	{
-		textHandler.Print(currentBranch.dialogues[currentIndex].text, 0, 1.5f);
+		SetCharacter();
 
-		var nameString = currentBranch.character.ToString();
-		var doShake = currentBranch.dialogues[currentIndex].doShake;
-		var isPlayer = currentBranch.dialogues[currentIndex].isPlayer;
+		textHandler.Print(CurrentDialogue.text, 0, 1.5f);
+
+		var nameString = CurrentDialogue.character.ToString();
+		var doShake = CurrentDialogue.doShake;
+		var isPlayer = CurrentDialogue.isPlayer;
 
 		if(isPlayer)
 		{
@@ -66,15 +112,25 @@ public class ChatboxHandler : MonoBehaviour
 		{
 			if(doShake)
 			{
-				character.DoShake();
+				currentCharacter.DoShake();
 			}
 			else
 			{
-				character.DoBoop();
+				currentCharacter.DoBoop();
 			}
 		}
 
+		if(CurrentDialogue.character == Character.Narrator)
+		{
+			nameString = "";
+		}
+
 		nameText.text = nameString;
+
+		foreach (var dialogueEvent in CurrentDialogue.events)
+		{
+			dialogueEvent.StartEvent();
+		}
 
 		currentIndex++;
 	}
@@ -88,7 +144,14 @@ public class ChatboxHandler : MonoBehaviour
 				if (currentIndex >= currentBranch.dialogues.Length)
 				{
 					Close();
-					character.ReturnToNormal();
+					if(currentCharacter)
+					{
+						currentCharacter.ReturnToNormal();
+					}
+					currentBranch = null;
+					currentIndex = 0;
+					textHandler.ResetText(); 
+					MenuHandler.ExitConversation();
 				}
 				else
 				{

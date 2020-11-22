@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum Emotion
 {
-	Neutral, Angry, Happy, Blushing, Sad
+	Neutral, Angry, Happy, UwU, Sad
 }
 
 [Serializable]
@@ -14,8 +14,10 @@ public struct DialogueData
 	public bool isPlayer;
 	public bool doShake;
 	public Emotion emotion;
-	[Multiline]
+	public Character character;
+	[TextArea(4, 10)]
 	public string text;
+	public DialogueEvent[] events;
 }
 
 public class SkillCheck
