@@ -171,6 +171,6 @@ public class BowChargedState : State<BowPlayerScript>
     }
 
 }
-//lägga till shooting state?
+//lägga till shooting state? no i dont tink sååååå
 #endregion
 

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BowComboCounter : MonoBehaviour
+public class SwordComboCounter : MonoBehaviour
 {
     [SerializeField] float baseStatIncreaseValue;
     [SerializeField] float scoreIncreasePerCombo;
 
     [SerializeField] TextMeshProUGUI comboText;
 
-    [HideInInspector] public int combo;
+    int combo;
 
     public void IncrementCombo()
     {

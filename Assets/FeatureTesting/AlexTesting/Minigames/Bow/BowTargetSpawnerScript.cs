@@ -11,7 +11,10 @@ public class BowTargetSpawnerScript : MonoBehaviour
     [SerializeField] Vector2 targetInitialVelocityMinMaxY;
 
     Timer targetSpawnTimer;
+    float floatTimer;
     [SerializeField] private float baseSpawnTime;
+    [Range(0.9f,1f)] [SerializeField] private float spawnTimeMultDecreasePerCombo;
+    private float currentSpawnOffset;
 
     [SerializeField] BowComboCounter bowComboCounter;
 
@@ -25,6 +28,7 @@ public class BowTargetSpawnerScript : MonoBehaviour
     {
         mainCamera = Camera.main;
 
+        //ändra spawn timer baserat på combo
         targetSpawnTimer = new Timer(baseSpawnTime);
 
         spawnPosXMin = mainCamera.orthographicSize * -Screen.width / Screen.height + targetRadius;
@@ -34,10 +38,22 @@ public class BowTargetSpawnerScript : MonoBehaviour
 
     void Update()
     {
-        targetSpawnTimer += Time.deltaTime;
-        if (targetSpawnTimer.Expired)
+        //targetSpawnTimer += Time.deltaTime;
+
+        //if (targetSpawnTimer.Expired)
+        //{
+        //    targetSpawnTimer.Reset();
+        //    SpawnTarget();
+        //}
+
+        floatTimer += Time.deltaTime;
+
+        //print(baseSpawnTime * Mathf.Pow(spawnTimeMultDecreasePerCombo, bowComboCounter.combo));
+        
+        //fult och dåligt men jag orkar inte 
+        if (floatTimer > baseSpawnTime * Mathf.Pow(spawnTimeMultDecreasePerCombo, bowComboCounter.combo))
         {
-            targetSpawnTimer.Reset();
+            floatTimer = 0f;
             SpawnTarget();
         }
     }
@@ -61,7 +77,7 @@ public class BowTargetSpawnerScript : MonoBehaviour
 
         bowTargetScipt.Initialize(launchVector, bowComboCounter);
 
-        print(launchVector.x);
+        //print(launchVector.x);
 
         //bowTargetScipt.Initialize(new Vector2(Random.Range(targetInitialVelocityMinMaxX.x, targetInitialVelocityMinMaxX.y), Random.Range(targetInitialVelocityMinMaxY.x, targetInitialVelocityMinMaxY.y)));
     }
