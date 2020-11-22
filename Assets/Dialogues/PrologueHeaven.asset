@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49334945631827e49b34ae207b939a8b, type: 3}
+  m_Name: PrologueHeaven
+  m_EditorClassIdentifier: 
+  dialogues:
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: "From the soil your bodies were buried\r\nA flower shall rose\r"
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: 'and eternally bloom
+
+      As a reminder of your courage, wisdom and heroism
+
+'
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: 'Your tales might fade away in obscurity
+
+      But do not fret;
+
+'
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: 'A young maiden shall revive you
+
+      And with your regained humanity
+
+'
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: 'for her to become a worthy ruler
+
+      of a kingdom, crumbling apart
+
+'
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: ...
+    events:
+    - {fileID: 724654715170689534, guid: 3ee474bdaeba8b749b488387a7913c37, type: 3}
+    - {fileID: 420252271815469964, guid: 2d0e3cdcdc6c2484b8991faf35348a72, type: 3}
+  nextBranches: []

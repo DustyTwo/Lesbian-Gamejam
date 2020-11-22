@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Prologue.unity
+    guid: d06b20362891a954ba65ed6219a16252
+  - enabled: 1
     path: Assets/Scenes/Castle.unity
     guid: fac769a3bf2d3f6499591fd23a33589e
   - enabled: 1
@@ -17,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrainingGrounds.unity
     guid: 785e08c424a85b94998860a2065b9352
+  - enabled: 1
+    path: Assets/Scenes/PrologueHeaven.unity
+    guid: 3529126338042ab4a8a03c6f901f9599
+  - enabled: 1
+    path: Assets/Scenes/ProloguePostHeaven.unity
+    guid: 5eb80e542d176484bab39eae42f2be03
   m_configObjects: {}

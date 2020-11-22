@@ -12,7 +12,10 @@ using UnityEngine.SceneManagement;
 		TrainingGrounds,
 		Lake,
 		Castle,
-		Garden
+		Garden,
+		Prologue,
+		PrologueHeaven,
+		ProloguePostHeaven
     }
 
 public class SceneHandler : MonoBehaviour

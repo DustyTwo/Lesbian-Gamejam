@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49334945631827e49b34ae207b939a8b, type: 3}
+  m_Name: ProloguePostHeaven
+  m_EditorClassIdentifier: 
+  dialogues:
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: "So I\u2019m\u2026 the promised maiden?"
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 0
+    text: You are a bright one, little princess-cake. Yes, we are bound to serve
+      you as your guardians.
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 2
+    text: More like forced to...
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: Well, you are kinda unlucky huh.
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 1
+    text: What do you mean, your highness?
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: "\u2019m a princess, yes. But\u2026 I\u2019m not worthy of your protection."
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: "I\u2019m\u2026 useless. I can\u2019t fight, I\u2019m terrible at dancing,
+      my etiquette is poorer than a pirate\u2019s and-\u201D\n"
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 0
+    text: "Listen, we can\u2019t just throw away our gig here, do you understand?
+      Whether you like it or not, we are here to serve you."
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 1
+    text: Your Highness, We swore to protect you, but also to aid your journey to
+      become a worthy ruler. Why not let us teach you?
+    events: []
+  - doShake: 1
+    emotion: 0
+    character: 3
+    text: "Teach me\u2026?"
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 0
+    text: Well of course! We will teach you all about combat, royal grace and how
+      to be a somewhat decent ruler of a kingdom, as we owe you our lives.
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: "Huh, if there ever was a decent ruler\u2026 Well I guess I don\u2019t
+      have a choice. Maybe you\u2019ll actually protect your people from starving
+      to death. I will silently kill those who oppose you with my hidden daggers,
+      princess."
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: Thus, an oath was forged between the botanic warriors and the princess.
+      With their combined powers and wisdom, they will help the princess grow to
+      a mature queen worthy of the throne.
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: ...
+    events:
+    - {fileID: 420252271815469964, guid: 211742ebb7c46dc4eaa85bc53eb0a13c, type: 3}
+  nextBranches: []
