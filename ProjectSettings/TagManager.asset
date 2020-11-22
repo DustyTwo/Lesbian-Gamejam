@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Dagger Slice End
+  - Dagger Slice Good
+  - Dagger Slice Bad
   layers:
   - Default
   - TransparentFX
@@ -20,10 +23,10 @@ TagManager:
   - Bow Target
   - Sword Target Attack
   - Sword Target Block
-  - 
-  - 
-  - 
-  - 
+  - Dagger Slice Entry
+  - Dagger Slice Mid
+  - Dagger Slice Side
+  - Dagger Slice End
   - 
   - 
   - 
