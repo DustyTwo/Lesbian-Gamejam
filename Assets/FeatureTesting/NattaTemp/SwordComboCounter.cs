@@ -10,7 +10,7 @@ public class SwordComboCounter : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI comboText;
 
-    int combo;
+    [HideInInspector] public int combo;
 
     public void IncrementCombo()
     {
