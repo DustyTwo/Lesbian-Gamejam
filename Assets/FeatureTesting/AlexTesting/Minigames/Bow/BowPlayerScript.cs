@@ -25,15 +25,17 @@ public class BowPlayerScript : MonoBehaviour
 
     private void Awake()
     {
+        //varför är timern här?
         bowChargeTimer = new Timer(chargeTime);
         mainCamera = Camera.main;
 
-
+        #region State machine saker
         bowStateMachine = new StateMachine<BowPlayerScript>(this);
 
         bowIdleState = new BowIdleState();
         bowChargingState = new BowChargingState(chargeTime);
         bowChargedState = new BowChargedState(arrowTravelTime, arrowRadius, mainCamera.transform.forward, targetsLayerMask, arrowPrefab);
+        #endregion
     }
 
     private void Start()
@@ -44,11 +46,9 @@ public class BowPlayerScript : MonoBehaviour
 
     void Update()
     {
-        //ändra så spriten är ett child object så man kan sätta den nice 
         transform.position = GetMouseWorldPosition();
 
         bowStateMachine.Update();
-
     }
 
     #region Usefull fuctions
@@ -129,7 +129,6 @@ public class BowChargedState : State<BowPlayerScript>
     Vector3 _cameraForward;
     LayerMask _targetsLayerMask;
     GameObject _arrowPrefab;
-    List<RaycastHit2D> _hitList;
 
     public BowChargedState(float arrowTravelTime, float arrowRadius, Vector3 cameraForward, LayerMask targetsLayerMask, GameObject arrowPrefab)
     {
@@ -163,13 +162,11 @@ public class BowChargedState : State<BowPlayerScript>
 
     private void Shoot(BowPlayerScript owner)
     {
-
         BowArrowScript bowArrowScript = Object.Instantiate(_arrowPrefab, owner.transform.position, Quaternion.identity).GetComponent<BowArrowScript>();
 
         bowArrowScript.Initialize(_arrowTravelTime, _arrowRadius, _cameraForward, _targetsLayerMask);
         owner.GetComponent<SpriteRenderer>().color = Color.green;
     }
-
 }
 //lägga till shooting state? no i dont tink sååååå
 #endregion
