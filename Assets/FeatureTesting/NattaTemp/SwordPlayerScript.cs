@@ -6,6 +6,7 @@ using UnityEngine;
 public class SwordPlayerScript : MonoBehaviour
 {
     [SerializeField] private GameObject _shield;
+    [SerializeField] private GameObject _shield1;
     [SerializeField] private GameObject _sword;
     [SerializeField] private float _shieldRange;
     [SerializeField] private float _swordRange;
@@ -13,9 +14,13 @@ public class SwordPlayerScript : MonoBehaviour
     [SerializeField] private LayerMask _attackLayerMask;
     [SerializeField] private SwordComboCounter _counter;
 
+    [SerializeField] private Animator anim;
+
     private Vector3 _shieldPosition;
     private Vector3 _swordPosition;
     private Vector2 _angle;
+
+    [SerializeField] private GameObject _swordCollider;
 
     Camera _mainCamera;
 
@@ -25,47 +30,56 @@ public class SwordPlayerScript : MonoBehaviour
         _shieldPosition = Vector3.zero;
     }
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
-        _shieldPosition = GetMouseWorldPosition().normalized * _shieldRange;
+        _shieldPosition = -GetMouseWorldPosition().normalized * _shieldRange;
         float rot_z = Mathf.Atan2(_shieldPosition.y, _shieldPosition.x) * Mathf.Rad2Deg;
-
-
 
         //flip the fucking sprite :)
         if (GetMouseWorldPosition().normalized.x > 0)
         {
-            //FLIP HERE 
-            //transform.Rotate(0, 180f, 0);
             transform.localRotation = Quaternion.Euler(0, 180, 0);
+            _sword.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            _sword.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            _shield.transform.rotation = Quaternion.Euler(180f, 0f, -rot_z);
+            _swordCollider.transform.rotation = Quaternion.Euler(180f, 0f, -rot_z);
         }
         else
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
-            //FLIP BACK HERE
+            _sword.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            _shield.transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+            _swordCollider.transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
         }
 
-        _shield.transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
         _shield.transform.position = _shieldPosition;
-
+        _swordCollider.transform.position = _shieldPosition;
 
         //hit
         if (Input.GetMouseButtonDown(0))
         {
-            _swordPosition = GetMouseWorldPosition().normalized * _swordRange;
-            _sword.transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
-            _sword.transform.position = _swordPosition;
-            //play anim?
-            _sword.SetActive(true);
+            anim.SetTrigger("Swing");
         }
-        else if (Input.GetMouseButtonUp(0))
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("SWOOSH"))
         {
-            _sword.SetActive(false);
+            _swordCollider.SetActive(true);
+            _shield1.SetActive(true);
+            _shield.SetActive(false);
+            
+            /* eller använda sig ac detta
+            if (Input.GetMouseButtonDown(1))
+            {
+                anim.Play("Idle");
+                _shield1.SetActive(false);
+                _shield.SetActive(true);
+            }*/
+        }
+        else
+        {
+            _swordCollider.SetActive(false);
+            _shield1.SetActive(false);
+            _shield.SetActive(true);
         }
     }
 

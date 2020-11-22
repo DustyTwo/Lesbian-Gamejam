@@ -12,7 +12,7 @@ public class SwordMoveTarget : MonoBehaviour
 
     private void Awake()
     {
-        _move = _player.transform.position - transform.position;
+        _move = (_player.transform.position - transform.position).normalized;
     }
 
     void FixedUpdate()
