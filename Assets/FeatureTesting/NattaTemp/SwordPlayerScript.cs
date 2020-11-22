@@ -58,22 +58,12 @@ public class SwordPlayerScript : MonoBehaviour
         //hit
         if (Input.GetMouseButtonDown(0))
         {
-            _swordCollider.SetActive(true);
             anim.SetTrigger("Swing");
-        }
-        else if (Input.GetMouseButtonUp(0)) //1
-        {
-            //Kanske ska flytta denna ner till nästa else för att man kan inte blocka eller lägga upp att man kan blocka här
-            //eftersom det tar lång tid tills man kjan börja blocka igen kanske den :
-            //_shield1.SetActive(false);
-            //_shield.SetActive(true);
-            //borde vara här?
-
-            
         }
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("SWOOSH"))
         {
+            _swordCollider.SetActive(true);
             _shield1.SetActive(true);
             _shield.SetActive(false);
             

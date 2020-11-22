@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 81139723316926937, guid: 7dcadce410248e041a31d6aa1eecf26c, type: 3}
-  _speed: 20
+  _speed: 30
 --- !u!58 &-8899679164446445549
 CircleCollider2D:
   m_ObjectHideFlags: 0

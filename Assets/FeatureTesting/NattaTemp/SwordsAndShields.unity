@@ -370,7 +370,7 @@ MonoBehaviour:
   targetRadius: 0
   baseRespawnTime: 1
   _counter: {fileID: 2130657626}
-  spawnTimeMultDecreasePerCombo: 0.9854
+  spawnTimeMultDecreasePerCombo: 0.994
 --- !u!4 &174150467
 Transform:
   m_ObjectHideFlags: 0
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 505358212}
   - component: {fileID: 505358213}
   m_Layer: 0
-  m_Name: ShieldColliderGameObject
+  m_Name: SwordColliderGameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,7 +461,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -5.5203085, y: 2.252286}
+  m_Offset: {x: -5.8837934, y: 1.4768486}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -472,7 +472,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.4761505, y: 11.157366}
+  m_Size: {x: 7.687772, y: 13.677536}
   m_EdgeRadius: 0
 --- !u!114 &505358213
 MonoBehaviour:
