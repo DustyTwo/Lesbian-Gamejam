@@ -49,7 +49,7 @@ public class SceneHandler : MonoBehaviour
 
     public bool LoadScene(SceneIndexes sceneBuildIndex, int animationIndex = 0)
     {
-        if (SceneManager.GetActiveScene().buildIndex != (int)sceneBuildIndex &&
+        if (SceneManager.GetActiveScene().name != sceneBuildIndex.ToString() &&
 			animationIndex >= 0 && animationIndex < _animators.Length)
 		{
 			StartCoroutine(ILoadScene(sceneBuildIndex, animationIndex));

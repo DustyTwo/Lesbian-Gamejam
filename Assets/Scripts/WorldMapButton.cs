@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class WorldMapButton : MonoBehaviour, IPointerDownHandler
 {
@@ -17,11 +18,14 @@ public class WorldMapButton : MonoBehaviour, IPointerDownHandler
 	{
 		if(parent.Open)
 		{
-			if(SceneHandler.Instance.LoadScene(scene))
+			if (SceneManager.GetActiveScene().name == scene.ToString())
+            {
+				parent.OpenClose();
+            }
+			else if(SceneHandler.Instance.LoadScene(scene))
 			{
 				parent.OnTransition();
 			}
 		}
-
 	}
 }
