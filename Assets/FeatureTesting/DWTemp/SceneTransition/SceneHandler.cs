@@ -15,7 +15,10 @@ using UnityEngine.SceneManagement;
 		Garden,
 		Prologue,
 		PrologueHeaven,
-		ProloguePostHeaven
+		ProloguePostHeaven,
+        DaggerMinigame,
+        BowMinigame,
+        SwordAndShieldMinigame
     }
 
 public class SceneHandler : MonoBehaviour
