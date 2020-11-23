@@ -4,5 +4,8 @@ using UnityEngine;
 
 public abstract class DialogueEvent : MonoBehaviour
 {
-	public abstract void StartEvent();
+	public void StartEvent()
+	{
+		Instantiate(gameObject);
+	}
 }

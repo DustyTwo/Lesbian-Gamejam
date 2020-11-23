@@ -147,7 +147,7 @@ public class ChatboxHandler : MonoBehaviour
 
 		foreach (var dialogueEvent in CurrentDialogue.events)
 		{
-			dialogueEvent.StartEvent();
+			dialogueEvent.GetComponent<DialogueEvent>().StartEvent();
 		}
 
 		currentIndex++;
@@ -161,18 +161,7 @@ public class ChatboxHandler : MonoBehaviour
 			{
 				if (currentIndex >= currentBranch.dialogues.Length)
 				{
-					Close();
-					if(currentCharacter)
-					{
-						currentCharacter.ReturnToNormal();
-					}
-
-					MenuHandler.player.ReturnToNormal();
-					
-					currentBranch = null;
-					currentIndex = 0;
-					textHandler.ResetText(); 
-					MenuHandler.ExitConversation();
+					CloseDialogue();
 				}
 				else
 				{
@@ -180,5 +169,21 @@ public class ChatboxHandler : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public void CloseDialogue()
+	{
+		Close();
+		if(currentCharacter)
+		{
+			currentCharacter.ReturnToNormal();
+		}
+
+		MenuHandler.player.ReturnToNormal();
+
+		currentBranch = null;
+		currentIndex = 0;
+		textHandler.ResetText();
+		MenuHandler.ExitConversation();
 	}
 }

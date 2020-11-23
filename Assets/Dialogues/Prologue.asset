@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49334945631827e49b34ae207b939a8b, type: 3}
   m_Name: Prologue
   m_EditorClassIdentifier: 
-  character: 0
   dialogues:
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "After watering, taking care of the weeds, and thinning out the flowers,
@@ -23,8 +21,7 @@ MonoBehaviour:
       But still, you couldn\u2019t shake it off. The disappointed look from your
       father, your mother\u2019s scolding..."
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "If grandmother was still alive, she would\u2019ve embraced you and comforted
@@ -32,65 +29,52 @@ MonoBehaviour:
       actually loved you and they were only strict cause they really wanted the best
       of you.\r\n"
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "But now when she was gone, you were not sure any of her words were true
       at all. \r\n"
     events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 0
-    text: "What should I do first?\r"
-    events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "Tears fall down from your cheeks, soaking the dry ground. No matter how
       much you try to bury your feelings, alas, it only becomes a puddle.\r"
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 3
     text: I miss you so much Grandma. Please, if you can still hear me. I feel so
       lonely. Everything I do is a failure. Please, give me guidance!
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "Suddenly, you hear a twinkling sound. You look up from the ground. You
       are surrounded by thousands of sparkling lights, as if fireflies danced around
       you. \r\n"
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "But it was not fireflies. You realize that as soon as all of the tiny
       lights land on three specific flowers. The peony, the forgetmenot shrubbery
       and the forsythia tree. \r"
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "Together, they form a bright light. You witness how the light, like the
       metamorphosis of a butterfly, molds into silhouettes of something\u2026 humanoid?\r"
     events: []
-  - isPlayer: 1
-    doShake: 1
+  - doShake: 1
     emotion: 0
     character: 3
     text: Huh?
     events:
-    - {fileID: 3057729614420587240, guid: 2f9bbeb0ed35a25498b446d4c7dec6d7, type: 3}
-  - isPlayer: 1
-    doShake: 0
+    - {fileID: 724654715170689534, guid: 3ee474bdaeba8b749b488387a7913c37, type: 3}
+    - {fileID: 420252271815469964, guid: 2f9bbeb0ed35a25498b446d4c7dec6d7, type: 3}
+  - doShake: 0
     emotion: 0
     character: 4
     text: 'Where the thick bush of peonies, shrubbery of forgetmenots and the forsythia
@@ -100,202 +84,180 @@ MonoBehaviour:
 
 '
     events: []
-  - isPlayer: 0
-    doShake: 1
+  - doShake: 1
     emotion: 0
     character: 1
     text: Your Highness!
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: The knight with long, pink hair suddenly kneels before you.
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 1
     text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
       you, my Queen."
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 3
     character: 3
     text: Wha-what? H-h-hold on!
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: "Oh my~ you\u2019re quite the formal one, aren\u2019t ya? No wasting time
       on judging who you are sworn to serve? Such an honorbound little dog you are.
       She is cute though."
     events: []
-  - isPlayer: 1
-    doShake: 1
+  - doShake: 1
     emotion: 3
     character: 3
     text: Wait what? Cute?
     events: []
-  - isPlayer: 0
-    doShake: 1
+  - doShake: 1
     emotion: 0
     character: 1
     text: Show some respect to our highness, Ostara. She tended to us for a long
       time and now saved us from our eternal slumber.
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: "Of course, I\u2019ll shower her with gratitude for releasing us. My apologies,
       my little queen."
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 1
     text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
       you, my Queen."
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: 'The archery lady bows effortlessly with grace.
 
 '
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: "I\u2019m Ostara, huntress of the golden forest. Pleasure to meet you.
       My bow and arrow will pierce whoever tries to hurt you."
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: "Now, wasn\u2019t that some courtly grace, Peony knight?"
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: "Paeonia rolls her eyes and sighs. She turns her eyes to the shorter, slender,
       cloaked woman.\r"
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: You too, Scorpio.
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 4
     text: The cloaked woman called Scorpio stands with distance from the others.
       She snorts and crosses her arms.
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 2
     text: "You already said my name, why bother? I don\u2019t work for the bourgaise."
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
+    emotion: 0
+    character: 0
+    text: Oh my! Your sting is so poisonous, Scorpio!
+    events: []
+  - doShake: 1
+    emotion: 0
+    character: 2
+    text: "Shut up! You better be careful with that silvertongue of yours. Or I\u2019ll
+      cut it off!"
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 0
+    text: "May I guess your name is \u2018Edgelord\u2019? Glad to make acquaintance
+      with you Ms Scorpio Edgelord."
+    events: []
+  - doShake: 1
+    emotion: 0
+    character: 2
+    text: "You Bitch! I\u2019ll break your kneecaps!"
+    events: []
+  - doShake: 0
     emotion: 0
     character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
+    text: Now calm down! You both are embarrassing yourself in front of our queen.
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: "Ok ok, first of all. I\u2019m not a queen - yet\u2026 I\u2019m [player\u2019s
+      name input], the crown princess of this kingdom. I\u2019m not sure for how
+      much longer though..."
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: "You suddenly realize that your tears are still visibly running down from
+      your cheeks. Before you can dry them off yourself, Paeonia\u2019s gentle hand
+      brushes them off."
+    events: []
+  - doShake: 0
     emotion: 0
     character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
+    text: Do not cry anymore, your highness. Even if your kingdom is on the brink
+      of falling apart, I will always follow you. After all, you saved us.
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
+    emotion: 0
+    character: 3
+    text: "No, no it\u2019s not like that\u2026 Our kingdom is fine\u2026 kinda..."
+    events: []
+  - doShake: 1
+    emotion: 0
+    character: 3
+    text: Wait, I don't understand. You were just flowers a couple of minutes ago.
+      How come you were secretly humans all this time?
+    events: []
+  - doShake: 0
+    emotion: 0
+    character: 0
+    text: Well, you are the promised maiden, the saviour of our endless slumber.
+    events: []
+  - doShake: 0
     emotion: 0
     character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
+    text: "You see, long ago, each of us used to be legendary warriors. But instead
+      of falling to death\u2019s embrace, the goddess Hanathea saved us."
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 1
+    emotion: 0
+    character: 2
+    text: Saved us? my ass she did. Cause living forever as a flower was mercy
+    events: []
+  - doShake: 0
     emotion: 0
     character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
+    text: 'Well, anyway, She gave us a prophecy:'
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
-  - isPlayer: 1
-    doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
-    events: []
+    text: ...
+    events:
+    - {fileID: 420252271815469964, guid: d3cdc19303af7c04c99e2dabc74ed15f, type: 3}
   nextBranches: []

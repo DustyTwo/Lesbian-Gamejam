@@ -16,7 +16,7 @@ public struct DialogueData
 	public Character character;
 	[TextArea(4, 10)]
 	public string text;
-	public DialogueEvent[] events;
+	public GameObject[] events;
 }
 
 public class SkillCheck
@@ -27,7 +27,6 @@ public class SkillCheck
 [CreateAssetMenu(fileName = "New DialogueBranch", menuName = "Dialogue Branch")]
 public class DialogueBranch : ScriptableObject 
 {
-	public Character character;
 	public DialogueData[] dialogues = new DialogueData[1];
 	public SkillCheck skillCheck;
 	public DialogueBranch[] nextBranches;

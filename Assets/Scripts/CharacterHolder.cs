@@ -23,12 +23,24 @@ public class CharacterHolder : MonoBehaviour
 	public bool alwaysHidden = false;
 	private bool inFront;
 
+	public bool autoStartDialogue;
+
 	private void Awake()
 	{
 		image = GetComponent<SpriteRenderer>();
 		col = GetComponent<BoxCollider2D>();
 		startPos = transform.position;
 		startScale = transform.localScale;
+	}
+
+	IEnumerator Start()
+	{
+		yield return new WaitForSeconds(.5f);
+
+		if(autoStartDialogue)
+		{
+			MenuHandler.StartConversation(dialogue, this);
+		}
 	}
 
 	private void Update()
@@ -61,6 +73,8 @@ public class CharacterHolder : MonoBehaviour
 
 	public void MoveToFront()
 	{
+		image.sortingOrder = 10;
+
 		var pos = MenuHandler.instance.characterPoint.position;
 
 		if (character == Character.Player)
@@ -82,6 +96,8 @@ public class CharacterHolder : MonoBehaviour
 
 	public void ReturnToNormal()
 	{
+		image.sortingOrder = 1;
+
 		transform.DOMove(startPos, .4f);
 		inFront = false;
 	}
