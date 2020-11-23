@@ -71,6 +71,11 @@ public class CharacterHolder : MonoBehaviour
 		MenuHandler.StartConversation(dialogue, this);
 	}
 
+	public void SetSprite(Sprite sprite)
+	{
+		image.sprite = sprite;
+	}
+
 	public void MoveToFront()
 	{
 		image.sortingOrder = 10;

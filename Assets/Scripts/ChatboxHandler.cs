@@ -21,12 +21,22 @@ public class ChatboxHandler : MonoBehaviour
 	private CharacterHolder[] characters;
 	private CharacterHolder currentCharacter;
 
+	public CharacterData[] characterData;
+	Dictionary<Character, CharacterData> characterDictionary;
+
 	Vector3 ClosedOffset { get => startPos + Vector3.right * closedOffset; }
 	DialogueData CurrentDialogue { get => currentBranch.dialogues[currentIndex]; }
 
 	private void Awake()
 	{
 		textHandler = GetComponentInChildren<CoolTextHandler>();
+
+		characterDictionary = new Dictionary<Character, CharacterData>();
+
+		for(int i = 0; i < characterData.Length; i++)
+		{
+			characterDictionary.Add(characterData[i].character, characterData[i]);
+		}
 	}
 
 	void Start()
@@ -57,7 +67,7 @@ public class ChatboxHandler : MonoBehaviour
 
 	void SetCharacter()
 	{
-		var nextCharacter = currentBranch.dialogues[currentIndex].character;
+		var nextCharacter = CurrentDialogue.character;
 
 		if(nextCharacter == Character.Player || nextCharacter == Character.Narrator)
 		{
@@ -72,9 +82,11 @@ public class ChatboxHandler : MonoBehaviour
 		{
 			foreach(var character in characters)
 			{
-				if (character.character == currentBranch.dialogues[currentIndex].character)
+				if (character.character == CurrentDialogue.character)
 				{
 					currentCharacter = character;
+					characterDictionary.TryGetValue(currentCharacter.character, out var data);
+					currentCharacter.SetSprite(data.sprites[(int)CurrentDialogue.emotion]);
 					currentCharacter.MoveToFront();
 					break;
 				}
@@ -83,15 +95,19 @@ public class ChatboxHandler : MonoBehaviour
 			currentCharacter = characters[0];
 		}
 
-		if(currentBranch.dialogues[currentIndex].character != currentCharacter.character)
+		if(CurrentDialogue.character != currentCharacter.character)
 		{
+			characterDictionary.TryGetValue(currentCharacter.character, out var data);
+			currentCharacter.SetSprite(data.sprites[0]);
 			currentCharacter.ReturnToNormal();
 
 			for(int i = 0; i < characters.Length; i++)
 			{
-				if(characters[i].character == currentBranch.dialogues[currentIndex].character)
+				if(characters[i].character == CurrentDialogue.character)
 				{
 					currentCharacter = characters[i];
+					characterDictionary.TryGetValue(currentCharacter.character, out data);
+					currentCharacter.SetSprite(data.sprites[(int)CurrentDialogue.emotion]);
 					currentCharacter.MoveToFront();
 				}
 			}

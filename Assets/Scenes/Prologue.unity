@@ -185,6 +185,7 @@ MonoBehaviour:
   largeScale: 1.4
   hidden: 1
   alwaysHidden: 0
+  autoStartDialogue: 0
 --- !u!212 &106058630
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -435,6 +436,7 @@ MonoBehaviour:
   largeScale: 1.4
   hidden: 1
   alwaysHidden: 0
+  autoStartDialogue: 0
 --- !u!212 &904572458
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -562,6 +564,7 @@ MonoBehaviour:
   largeScale: 1.4
   hidden: 1
   alwaysHidden: 0
+  autoStartDialogue: 0
 --- !u!212 &1480351691
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -689,6 +692,7 @@ MonoBehaviour:
   largeScale: 2
   hidden: 0
   alwaysHidden: 1
+  autoStartDialogue: 0
 --- !u!212 &1499959901
 SpriteRenderer:
   m_ObjectHideFlags: 0

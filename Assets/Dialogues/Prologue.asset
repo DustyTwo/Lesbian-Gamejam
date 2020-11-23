@@ -106,7 +106,7 @@ MonoBehaviour:
     text: Wha-what? H-h-hold on!
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 2
     character: 0
     text: "Oh my~ you\u2019re quite the formal one, aren\u2019t ya? No wasting time
       on judging who you are sworn to serve? Such an honorbound little dog you are.
@@ -124,16 +124,10 @@ MonoBehaviour:
       time and now saved us from our eternal slumber.
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 2
     character: 0
     text: "Of course, I\u2019ll shower her with gratitude for releasing us. My apologies,
       my little queen."
-    events: []
-  - doShake: 0
-    emotion: 0
-    character: 1
-    text: "I\u2019m Paeonia Caduceus, I pledge my eternal loyalty and servitude to
-      you, my Queen."
     events: []
   - doShake: 0
     emotion: 0
@@ -149,7 +143,7 @@ MonoBehaviour:
       My bow and arrow will pierce whoever tries to hurt you."
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 2
     character: 0
     text: "Now, wasn\u2019t that some courtly grace, Peony knight?"
     events: []
@@ -161,7 +155,7 @@ MonoBehaviour:
     events: []
   - doShake: 0
     emotion: 0
-    character: 0
+    character: 1
     text: You too, Scorpio.
     events: []
   - doShake: 0
@@ -171,7 +165,7 @@ MonoBehaviour:
       She snorts and crosses her arms.
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 4
     character: 2
     text: "You already said my name, why bother? I don\u2019t work for the bourgaise."
     events: []
@@ -181,24 +175,24 @@ MonoBehaviour:
     text: Oh my! Your sting is so poisonous, Scorpio!
     events: []
   - doShake: 1
-    emotion: 0
+    emotion: 1
     character: 2
     text: "Shut up! You better be careful with that silvertongue of yours. Or I\u2019ll
       cut it off!"
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 2
     character: 0
     text: "May I guess your name is \u2018Edgelord\u2019? Glad to make acquaintance
       with you Ms Scorpio Edgelord."
     events: []
   - doShake: 1
-    emotion: 0
+    emotion: 1
     character: 2
     text: "You Bitch! I\u2019ll break your kneecaps!"
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 1
     character: 1
     text: Now calm down! You both are embarrassing yourself in front of our queen.
     events: []
@@ -217,7 +211,7 @@ MonoBehaviour:
       brushes them off."
     events: []
   - doShake: 0
-    emotion: 0
+    emotion: 2
     character: 1
     text: Do not cry anymore, your highness. Even if your kingdom is on the brink
       of falling apart, I will always follow you. After all, you saved us.
