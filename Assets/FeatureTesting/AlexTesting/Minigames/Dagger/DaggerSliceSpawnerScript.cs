@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DaggerSliceSpawnerScript : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class DaggerSliceSpawnerScript : MonoBehaviour
 
     //använder BowComboCounter för det är generellt combo script men det insåg inte det när jag skrev det :)
     [SerializeField] BowComboCounter comboCounter;
-
+    [SerializeField] DaggerHitTextScript daggerHitTextScript;
     private void Update()
     {
         floatTimer += Time.deltaTime;
@@ -36,7 +37,7 @@ public class DaggerSliceSpawnerScript : MonoBehaviour
         Vector3 sliceSpawnPositionVariation = new Vector3(Random.Range(-sliceSpawnPositionVariationMax, sliceSpawnPositionVariationMax), Random.Range(-sliceSpawnPositionVariationMax, sliceSpawnPositionVariationMax), 0);
         DaggerSliceScript daggerSliceScript = Instantiate(slicePrefab, sliceSpawnBasePosition.position + sliceSpawnPositionVariation, spawnRot).GetComponent<DaggerSliceScript>();
 
-        daggerSliceScript.Initialize(sliceTimeToLive * Mathf.Pow(sliceTimeToLiveMultDecreasePerCombo, comboCounter.combo), comboCounter);
+        daggerSliceScript.Initialize(sliceTimeToLive * Mathf.Pow(sliceTimeToLiveMultDecreasePerCombo, comboCounter.combo), comboCounter, daggerHitTextScript);
 
     }
 }

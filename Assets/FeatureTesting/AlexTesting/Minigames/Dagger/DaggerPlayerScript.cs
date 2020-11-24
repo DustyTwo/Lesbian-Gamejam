@@ -81,7 +81,7 @@ public class DaggerIdleState : State<DaggerPlayerScript>
             //if (Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, out _hit, 5f, owner.entryTargetLayerMask))
             if (_hit)
             {
-                Debug.Log("entry hit");
+                //Debug.Log("entry hit");
                 owner.daggerStateMachine.ChangeState(new DaggerSlicingState(_hit.collider.gameObject.GetComponentInParent<DaggerSliceScript>()));
             }
 
@@ -106,6 +106,7 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
 
     public override void UpdateState(DaggerPlayerScript owner)
     {
+        //TRAIL RENDERER (fast bra)
         //ändra till cirkel och fixa så det stödjer att göra flera slices samtidigt
         _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask);
 
@@ -113,7 +114,7 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
         {
             if (_hit.collider.gameObject.CompareTag("Dagger Slice End"))
             {
-                Debug.Log("GOOD SLICE !!");
+                //Debug.Log("GOOD SLICE !!");
                 owner.GetComponent<SpriteRenderer>().color = Color.green;
 
                 _slice.SliceComplete();
@@ -125,7 +126,7 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
         {
             //fixa någon grace period så det blir mindre bs
 
-            Debug.Log("DOOOOHH I MISSED >:(");
+            //Debug.Log("DOOOOHH I MISSED >:(");
             owner.GetComponent<SpriteRenderer>().color = Color.red;
 
             //gör en lite wiggel och sen att den faller ner och fadear ut, sen förstörs

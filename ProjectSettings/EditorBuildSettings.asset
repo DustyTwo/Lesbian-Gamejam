@@ -28,7 +28,7 @@ EditorBuildSettings:
     guid: 5eb80e542d176484bab39eae42f2be03
   - enabled: 1
     path: Assets/Scenes/DaggerMinigame.unity
-    guid: 886499c0f1f0ed743aa8d83274f0b496
+    guid: aba35d60d8b08e3498fe1b5c9aa3e666
   - enabled: 1
     path: Assets/Scenes/BowMinigame.unity
     guid: 19c91c4ea2ad61d45b5a7f29acefcbe6
