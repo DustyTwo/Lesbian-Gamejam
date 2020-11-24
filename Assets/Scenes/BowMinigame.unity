@@ -270,7 +270,7 @@ MonoBehaviour:
   targetInitialVelocityMinMaxX: {x: -2, y: 2}
   targetInitialVelocityMinMaxY: {x: 8, y: 10}
   baseSpawnTime: 1.5
-  spawnTimeMultDecreasePerCombo: 0.99
+  spawnTimeMultDecreasePerCombo: 0.98
   bowComboCounter: {fileID: 2109375940}
 --- !u!1 &1091734760
 GameObject:

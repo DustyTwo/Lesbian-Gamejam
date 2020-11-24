@@ -5,7 +5,8 @@ using UnityEngine;
 public class DaggerPlayerScript : MonoBehaviour
 {
     [SerializeField] public LayerMask entryTargetLayerMask;
-    [SerializeField] public LayerMask allTargetsLayerMask;
+    [SerializeField] public LayerMask currentSliceLayer;
+    //public float daggerRadius;
 
     [HideInInspector] public Camera mainCamera;
 
@@ -100,15 +101,29 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
         _slice = slice;
     }
 
-    public override void EnterState(DaggerPlayerScript owner) { }
+    public override void EnterState(DaggerPlayerScript owner)
+    {
+        BoxCollider2D[] sliceColliders = _slice.GetComponentsInChildren<BoxCollider2D>();
+
+        foreach (BoxCollider2D item in sliceColliders)
+        {
+            item.gameObject.layer = LayerMask.NameToLayer("Dagger Current Slice");
+        }
+        //_slice.gameObject.layer = LayerMask.NameToLayer("Dagger Current Slice");
+        //Debug.Break();
+    }
 
     public override void ExitState(DaggerPlayerScript owner) { }
 
     public override void UpdateState(DaggerPlayerScript owner)
     {
         //TRAIL RENDERER (fast bra)
+
         //ändra till cirkel och fixa så det stödjer att göra flera slices samtidigt
-        _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask);
+        //_hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask);
+        _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.currentSliceLayer);
+
+        //List<RaycastHit2D> _hitList = new List<RaycastHit2D>(Physics2D.CircleCastAll(owner.transform.position, owner.daggerRadius, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask));
 
         if (_hit)
         {
@@ -128,10 +143,11 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
 
             //Debug.Log("DOOOOHH I MISSED >:(");
             owner.GetComponent<SpriteRenderer>().color = Color.red;
-
+            
             //gör en lite wiggel och sen att den faller ner och fadear ut, sen förstörs
 
-            _slice.SliceFailed();
+            if(_slice)
+                _slice.SliceFailed();
 
             owner.daggerStateMachine.ChangeState(owner.daggerIdleState);
         }

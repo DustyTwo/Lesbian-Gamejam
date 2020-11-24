@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 194299662}
   - component: {fileID: 194299664}
   - component: {fileID: 194299663}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: Combo Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 194299662}
-  - {fileID: 1440926939}
   - {fileID: 1699987848}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -673,9 +672,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slicePrefab: {fileID: 8572632284739072952, guid: 5de69d9b33c766e4782c8b2a411ca6f5, type: 3}
   sliceSpawnBasePosition: {fileID: 910089432}
-  sliceSpawnPositionVariationMax: 0.35
-  baseSpawnTime: 1.7
-  spawnTimeMultDecreasePerCombo: 0.98
+  sliceSpawnPositionVariationMax: 0
+  baseSpawnTime: 1.5
+  spawnTimeMultDecreasePerCombo: 0.975
   sliceTimeToLive: 2
   sliceTimeToLiveMultDecreasePerCombo: 0.99
   comboCounter: {fileID: 1084405141}
@@ -898,12 +897,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440926937}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -543.5, y: -305, z: 0}
-  m_LocalScale: {x: 1.2464652, y: 1.2464652, z: 1.2464652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.2548, y: 1.2548, z: 1.2548}
   m_Children: []
-  m_Father: {fileID: 285287126}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629523066
 GameObject:
@@ -1070,7 +1069,7 @@ RectTransform:
   - {fileID: 417013800}
   - {fileID: 1629523067}
   m_Father: {fileID: 285287126}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1190,7 +1189,7 @@ MonoBehaviour:
   entryTargetLayerMask:
     serializedVersion: 2
     m_Bits: 32768
-  allTargetsLayerMask:
+  currentSliceLayer:
     serializedVersion: 2
-    m_Bits: 491520
+    m_Bits: 65536
   mainCamera: {fileID: 0}

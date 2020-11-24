@@ -16,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Test
   - 
   - 
   - 
@@ -24,9 +24,9 @@ TagManager:
   - Sword Target Attack
   - Sword Target Block
   - Dagger Slice Entry
-  - Dagger Slice Mid
-  - Dagger Slice Side
-  - Dagger Slice End
+  - Dagger Current Slice
+  - 
+  - 
   - 
   - 
   - 

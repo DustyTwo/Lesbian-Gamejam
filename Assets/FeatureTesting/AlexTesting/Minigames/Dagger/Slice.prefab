@@ -547,7 +547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8572632284781182981}
   - component: {fileID: 8572632284781182980}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: Mid
   m_TagString: Dagger Slice Good
   m_Icon: {fileID: 0}
@@ -592,7 +592,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.2676551}
+  m_Size: {x: 1.2, y: 3.2676551}
   m_EdgeRadius: 0
 --- !u!1 &8572632284917735287
 GameObject:
@@ -932,7 +932,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8572632285407102889}
   - component: {fileID: 8572632285407102888}
-  m_Layer: 18
+  m_Layer: 0
   m_Name: End
   m_TagString: Dagger Slice End
   m_Icon: {fileID: 0}
@@ -977,7 +977,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.90893674}
+  m_Size: {x: 1.2, y: 0.90893674}
   m_EdgeRadius: 0
 --- !u!1 &8572632285452733438
 GameObject:
@@ -1356,5 +1356,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.0141242}
+  m_Size: {x: 1.2, y: 1.0141242}
   m_EdgeRadius: 0
