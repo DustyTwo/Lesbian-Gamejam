@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum GameState
+{
+	Idle, Conversation	
+}
+
 public class MenuHandler : MonoBehaviour
 {
-	enum State
-	{
-		Idle, Conversation	
-	}
 
 	public Transform characterPoint;
 	public Transform playerPoint;
@@ -16,7 +17,7 @@ public class MenuHandler : MonoBehaviour
 	public static MenuHandler instance;
 	public ChatboxHandler dialogueHandler;
 	public Transform textWindow;
-	private static State gameState;
+	private static GameState gameState;
 
 	public static CharacterHolder player;
 
@@ -36,16 +37,16 @@ public class MenuHandler : MonoBehaviour
 		DontDestroyOnLoad(player);
 	}
 
-	static bool CheckState(State state)
+	public static bool CheckState(GameState state)
 	{
 		return gameState == state;
 	}
 
 	public static void StartConversation(DialogueBranch branch, CharacterHolder character)
 	{
-		if (!CheckState(State.Conversation))
+		if (!CheckState(GameState.Conversation))
 		{
-			gameState = State.Conversation;
+			gameState = GameState.Conversation;
 
 			instance.dialogueHandler.currentBranch = branch;
 			instance.dialogueHandler.OpenAndStartConvo();
@@ -54,6 +55,6 @@ public class MenuHandler : MonoBehaviour
 
 	public static void ExitConversation()
 	{
-		gameState = State.Idle;
+		gameState = GameState.Idle;
 	}
 }
