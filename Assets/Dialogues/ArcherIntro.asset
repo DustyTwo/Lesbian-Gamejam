@@ -12,48 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49334945631827e49b34ae207b939a8b, type: 3}
   m_Name: ArcherIntro
   m_EditorClassIdentifier: 
-  character: 0
   dialogues:
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: say aaah
     events: []
-  - isPlayer: 1
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 3
     text: Aaaa
     events: []
-  - isPlayer: 0
-    doShake: 1
+  - doShake: 1
     emotion: 0
     character: 0
     text: wider ;)
     events: []
-  - isPlayer: 1
-    doShake: 1
+  - doShake: 1
     emotion: 0
     character: 3
     text: AAAAAAAA
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: huh?
     events: []
-  - isPlayer: 1
-    doShake: 1
+  - doShake: 1
     emotion: 0
     character: 3
     text: I AM SAYING AAAAAAA
     events: []
-  - isPlayer: 0
-    doShake: 0
+  - doShake: 0
     emotion: 0
     character: 0
     text: ok
     events: []
-  nextBranches: []
+  - doShake: 0
+    emotion: 0
+    character: 4
+    text: What do you do?
+    events: []
+  choices:
+  - text: Simp for ost sara
+  - text: simp for pecs-onia
+  - text: send feet pics
+  nextBranches:
+  - {fileID: 11400000, guid: af77ae0d9bd0dda4aa87b6ace9574cbc, type: 2}
+  - {fileID: 11400000, guid: af77ae0d9bd0dda4aa87b6ace9574cbc, type: 2}
+  - {fileID: 11400000, guid: af77ae0d9bd0dda4aa87b6ace9574cbc, type: 2}
