@@ -12,8 +12,9 @@ public class DaggerHitTextScript : MonoBehaviour
 
     TextMeshProUGUI currentText;
     Timer currentTextTimer;
+	public System.Action onHit;
 
-    private void Awake()
+	private void Awake()
     {
         currentTextTimer = new Timer(displayTime);
     }
@@ -38,6 +39,8 @@ public class DaggerHitTextScript : MonoBehaviour
     }
     public void OnHit()
     {
+		onHit?.Invoke();
+
         EnableText(hitText);
     }
 

@@ -19,7 +19,19 @@ public class DaggerSliceSpawnerScript : MonoBehaviour
     //använder BowComboCounter för det är generellt combo script men det insåg inte det när jag skrev det :)
     [SerializeField] BowComboCounter comboCounter;
     [SerializeField] DaggerHitTextScript daggerHitTextScript;
-    private void Update()
+
+
+	private void OnEnable()
+	{
+		daggerHitTextScript.onHit += OnHit;
+	}
+
+	private void OnDisable()
+	{
+		daggerHitTextScript.onHit -= OnHit;
+	}
+
+	private void Update()
     {
         floatTimer += Time.deltaTime;
 
@@ -38,6 +50,10 @@ public class DaggerSliceSpawnerScript : MonoBehaviour
         DaggerSliceScript daggerSliceScript = Instantiate(slicePrefab, sliceSpawnBasePosition.position + sliceSpawnPositionVariation, spawnRot).GetComponent<DaggerSliceScript>();
 
         daggerSliceScript.Initialize(sliceTimeToLive * Mathf.Pow(sliceTimeToLiveMultDecreasePerCombo, comboCounter.combo), comboCounter, daggerHitTextScript);
-
     }
+
+	void OnHit()
+	{
+		GetComponent<Animator>().SetTrigger("Hit");
+	}
 }
