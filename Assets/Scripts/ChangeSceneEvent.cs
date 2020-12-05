@@ -17,7 +17,6 @@ public class ChangeSceneEvent : DialogueEvent
 
 		yield return new WaitForSeconds(delay);
 
-
 		SceneHandler.Instance.LoadScene(scene);
     }
 }

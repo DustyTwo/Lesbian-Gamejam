@@ -39,7 +39,7 @@ public class CharacterHolder : MonoBehaviour
 
 		if(autoStartDialogue)
 		{
-			MenuHandler.StartConversation(dialogue, this);
+			MenuHandler.StartConversation(dialogue);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class CharacterHolder : MonoBehaviour
 
 	private void OnMouseDown()
 	{
-		MenuHandler.StartConversation(dialogue, this);
+		MenuHandler.StartConversation(dialogue);
 	}
 
 	public void SetSprite(Sprite sprite)

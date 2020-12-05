@@ -15,16 +15,19 @@ public class WorldMapHandler : MonoBehaviour
 
 	public void OpenClose()
 	{
-		if(!open)
+		if(MenuHandler.CheckState(GameState.Idle))
 		{
-			animator.Play("Open");
-		}
-		else
-		{
-			animator.Play("Close");
-		}
+			if(!open)
+			{
+				animator.Play("Open");
+			}
+			else
+			{
+				animator.Play("Close");
+			}
 
-		open = !open;
+			open = !open;
+		}
 	} 
 
 	public void OnTransition()

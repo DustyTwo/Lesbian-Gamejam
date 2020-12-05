@@ -5,13 +5,17 @@ using UnityEngine;
 public class DaggerPlayerScript : MonoBehaviour
 {
     [SerializeField] public LayerMask entryTargetLayerMask;
-    [SerializeField] public LayerMask allTargetsLayerMask;
+    [SerializeField] public LayerMask currentSliceLayer;
+	//public float daggerRadius;
+	public TrailRenderer mouseTrail;
+	public float mouseTrailSpeed = 8f;
+	public SpriteRenderer cursor;
 
-    [HideInInspector] public Camera mainCamera;
+	[HideInInspector] public Camera mainCamera;
+	public System.Action OnHit;
 
-
-    #region State machine saker
-    public StateMachine<DaggerPlayerScript> daggerStateMachine;
+	#region State machine saker
+	public StateMachine<DaggerPlayerScript> daggerStateMachine;
 
     public DaggerIdleState daggerIdleState;
     //public DaggerSlicingState daggerSlicingState;
@@ -20,6 +24,7 @@ public class DaggerPlayerScript : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
+		cursor = GetComponent<SpriteRenderer>();
 
         #region State machine saker
         daggerStateMachine = new StateMachine<DaggerPlayerScript>(this);
@@ -38,7 +43,21 @@ public class DaggerPlayerScript : MonoBehaviour
     {
         transform.position = GetMouseWorldPosition();
 
-        daggerStateMachine.Update();
+		mouseTrail.transform.position = Vector3.Lerp(mouseTrail.transform.position, transform.position, Time.deltaTime * mouseTrailSpeed);
+
+		Color c = Color.clear;
+
+		if(Input.GetMouseButton(0))
+		{
+			c = Color.white;
+		}
+
+		transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one * (1- c.a), Time.deltaTime * 32f);
+
+		mouseTrail.startColor = Color.Lerp(mouseTrail.startColor, c, Time.deltaTime * 16f);
+		mouseTrail.endColor = Color.Lerp(mouseTrail.endColor, c, Time.deltaTime * 20f);
+
+		daggerStateMachine.Update();
     }
 
     //private void FixedUpdate()
@@ -72,11 +91,11 @@ public class DaggerIdleState : State<DaggerPlayerScript>
 
     public override void UpdateState(DaggerPlayerScript owner)
     {
-        if (Input.GetMouseButton(0))
+		if (Input.GetMouseButton(0))
         {
-            //kolla ifall man träffar de andra och isåfall 
+			//kolla ifall man träffar de andra och isåfall 
 
-            _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.entryTargetLayerMask);
+			_hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.entryTargetLayerMask);
 
             //if (Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, out _hit, 5f, owner.entryTargetLayerMask))
             if (_hit)
@@ -88,7 +107,9 @@ public class DaggerIdleState : State<DaggerPlayerScript>
             //kolla om man träffar början av the path
             //isåfall, byt state och aktivera the slice path 
         }
-    }
+
+
+	}
 }
 
 public class DaggerSlicingState : State<DaggerPlayerScript>
@@ -100,22 +121,36 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
         _slice = slice;
     }
 
-    public override void EnterState(DaggerPlayerScript owner) { }
+    public override void EnterState(DaggerPlayerScript owner)
+    {
+        BoxCollider2D[] sliceColliders = _slice.GetComponentsInChildren<BoxCollider2D>();
+
+        foreach (BoxCollider2D item in sliceColliders)
+        {
+            item.gameObject.layer = LayerMask.NameToLayer("Dagger Current Slice");
+        }
+        //_slice.gameObject.layer = LayerMask.NameToLayer("Dagger Current Slice");
+        //Debug.Break();
+    }
 
     public override void ExitState(DaggerPlayerScript owner) { }
 
     public override void UpdateState(DaggerPlayerScript owner)
     {
         //TRAIL RENDERER (fast bra)
+
         //ändra till cirkel och fixa så det stödjer att göra flera slices samtidigt
-        _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask);
+        //_hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask);
+        _hit = Physics2D.Raycast(owner.transform.position, owner.mainCamera.transform.forward, 5f, owner.currentSliceLayer);
+
+        //List<RaycastHit2D> _hitList = new List<RaycastHit2D>(Physics2D.CircleCastAll(owner.transform.position, owner.daggerRadius, owner.mainCamera.transform.forward, 5f, owner.allTargetsLayerMask));
 
         if (_hit)
         {
             if (_hit.collider.gameObject.CompareTag("Dagger Slice End"))
             {
                 //Debug.Log("GOOD SLICE !!");
-                owner.GetComponent<SpriteRenderer>().color = Color.green;
+                //owner.GetComponent<SpriteRenderer>().color = Color.green;
 
                 _slice.SliceComplete();
 
@@ -127,11 +162,12 @@ public class DaggerSlicingState : State<DaggerPlayerScript>
             //fixa någon grace period så det blir mindre bs
 
             //Debug.Log("DOOOOHH I MISSED >:(");
-            owner.GetComponent<SpriteRenderer>().color = Color.red;
-
+            //owner.GetComponent<SpriteRenderer>().color = Color.red;
+            
             //gör en lite wiggel och sen att den faller ner och fadear ut, sen förstörs
 
-            _slice.SliceFailed();
+            if(_slice)
+                _slice.SliceFailed();
 
             owner.daggerStateMachine.ChangeState(owner.daggerIdleState);
         }

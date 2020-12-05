@@ -6,17 +6,16 @@ using DG.Tweening;
 public class ChatboxHandler : MonoBehaviour
 {
 	public TMPro.TextMeshProUGUI nameText;
-	public DialogueBranch currentBranch;
+	public DialogueBranch CurrentBranch { get => MenuHandler.CurrentBranch; }
 	public CharacterHolder character;
 	private Vector3 startPos;
 
-	CoolTextHandler textHandler;
 	public float closedOffset = 600f;
 	public float transitionTime = 1f;
 
-	bool active = false;
+	public bool active = false;
 
-	int currentIndex = 0;
+	int CurrentIndex { get => MenuHandler.CurrentIndex; set => MenuHandler.CurrentIndex = value; }
 	private float timeSinceStart;
 	private CharacterHolder[] characters;
 	private CharacterHolder currentCharacter;
@@ -24,8 +23,9 @@ public class ChatboxHandler : MonoBehaviour
 	public CharacterData[] characterData;
 	Dictionary<Character, CharacterData> characterDictionary;
 
+	public CoolTextHandler textHandler { get; private set; }
 	Vector3 ClosedOffset { get => startPos + Vector3.right * closedOffset; }
-	DialogueData CurrentDialogue { get => currentBranch.dialogues[currentIndex]; }
+	DialogueData CurrentDialogue { get => MenuHandler.CurrentBranch.dialogues[CurrentIndex]; }
 
 	private void Awake()
 	{
@@ -112,9 +112,14 @@ public class ChatboxHandler : MonoBehaviour
 				}
 			}
 		}
+		else
+		{
+			characterDictionary.TryGetValue(currentCharacter.character, out var data);
+			currentCharacter.SetSprite(data.sprites[(int)CurrentDialogue.emotion]);
+		}
 	}
 
-	IEnumerator StartDialogue()
+	public IEnumerator StartDialogue()
 	{
 		SetCharacter();
 
@@ -166,25 +171,12 @@ public class ChatboxHandler : MonoBehaviour
 			dialogueEvent.GetComponent<DialogueEvent>().StartEvent();
 		}
 
-		currentIndex++;
+		CurrentIndex++;
 	}
 
 	private void Update()
 	{
-		if(currentBranch != null && Input.GetMouseButtonDown(0) && active)
-		{
-			if(!textHandler.IsPrinting)
-			{
-				if (currentIndex >= currentBranch.dialogues.Length)
-				{
-					CloseDialogue();
-				}
-				else
-				{
-					StartCoroutine(StartDialogue());
-				}
-			}
-		}
+
 	}
 
 	public void CloseDialogue()
@@ -197,8 +189,7 @@ public class ChatboxHandler : MonoBehaviour
 
 		MenuHandler.player.ReturnToNormal();
 
-		currentBranch = null;
-		currentIndex = 0;
+		CurrentIndex = 0;
 		textHandler.ResetText();
 		MenuHandler.ExitConversation();
 	}

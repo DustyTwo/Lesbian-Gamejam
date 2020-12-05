@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum GameState
+{
+	Idle, Conversation, Choice	
+}
+
 public class MenuHandler : MonoBehaviour
 {
-	enum State
-	{
-		Idle, Conversation	
-	}
-
 	public Transform characterPoint;
 	public Transform playerPoint;
 	public GameObject playerPrefab;
 	public static MenuHandler instance;
 	public ChatboxHandler dialogueHandler;
 	public Transform textWindow;
-	private static State gameState;
+	public static GameState GameState
+	{
+		get;
+		private set;
+	}
+
+	public static DialogueBranch CurrentBranch;
+	public static int CurrentIndex;
 
 	public static CharacterHolder player;
 
@@ -36,24 +43,72 @@ public class MenuHandler : MonoBehaviour
 		DontDestroyOnLoad(player);
 	}
 
-	static bool CheckState(State state)
+	private void Update()
 	{
-		return gameState == state;
+		if(CurrentBranch != null && Input.GetMouseButtonDown(0) && dialogueHandler.active)
+		{
+			if(!dialogueHandler.textHandler.IsPrinting && CheckState(GameState.Conversation))
+			{
+				if(CurrentIndex >= CurrentBranch.dialogues.Length)
+				{
+					if(CurrentBranch.choices.Length > 0)
+					{
+						SetGameState(GameState.Choice);
+						ChoiceHandler.instance.SetChoices(CurrentBranch.choices);
+						ChoiceHandler.OnChoiceSelected += OnChoice;
+					}
+					else
+					{
+						dialogueHandler.CloseDialogue();
+					}
+				}
+				else
+				{
+					StartCoroutine(dialogueHandler.StartDialogue());
+				}
+			}
+		}
 	}
 
-	public static void StartConversation(DialogueBranch branch, CharacterHolder character)
+	public void OnChoice(int index)
 	{
-		if (!CheckState(State.Conversation))
-		{
-			gameState = State.Conversation;
+		ChoiceHandler.OnChoiceSelected -= OnChoice;
 
-			instance.dialogueHandler.currentBranch = branch;
+		if (index < CurrentBranch.nextBranches.Length)
+		{
+			StartConversation(CurrentBranch.nextBranches[index]);
+		}
+		else
+		{
+			GameState = GameState.Idle;
+			dialogueHandler.CloseDialogue();
+		}
+	}
+
+	public static bool CheckState(GameState state)
+	{
+		return GameState == state;
+	}
+
+	public static void SetGameState(GameState gameState)
+	{
+		GameState = gameState;
+	}
+
+	public static void StartConversation(DialogueBranch branch)
+	{
+		if (!CheckState(GameState.Conversation))
+		{
+			GameState = GameState.Conversation;
+
+			CurrentBranch = branch;
+			CurrentIndex = 0;
 			instance.dialogueHandler.OpenAndStartConvo();
 		}
 	}
 
 	public static void ExitConversation()
 	{
-		gameState = State.Idle;
+		GameState = GameState.Idle;
 	}
 }

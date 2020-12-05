@@ -97,10 +97,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: 3
-  dialogue: {fileID: 11400000, guid: 5d8e179b5ebe3914fa149396927ae9b4, type: 2}
+  dialogue: {fileID: 0}
   largeScale: 2
   hidden: 0
   alwaysHidden: 0
+  autoStartDialogue: 0
 --- !u!61 &2362832721937962564
 BoxCollider2D:
   m_ObjectHideFlags: 0

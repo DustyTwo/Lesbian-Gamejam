@@ -15,7 +15,20 @@ public class DaggerSliceScript : MonoBehaviour
         timer = new Timer(sliceTime);
         _comboCounter = comboCounter;
         _daggerHitTextScript = daggerHitTextScript;
-    }
+
+		var sortOrder = -(int)(Time.time % 60);
+
+		foreach(var sprite in GetComponentsInChildren<SpriteRenderer>())
+		{
+			sprite.sortingOrder = sortOrder;
+		}
+
+		var mask = GetComponentInChildren<SpriteMask>();
+
+		mask.backSortingOrder = sortOrder - 1;
+		mask.GetComponentInChildren<SpriteMask>().frontSortingOrder = sortOrder;
+
+	}
 
     private void Update()
     {
@@ -23,30 +36,48 @@ public class DaggerSliceScript : MonoBehaviour
 
         if (timer.Expired)
         {
-            //Debug.Log("2 slow");
+			//Debug.Log("2 slow");
 
-            SliceFailed();
+			SliceFailed();
         }
     }
 
     public void SliceFailed()
     {
+	
         //DaggerHitTextScript.EnableText(_missText);
 
         _comboCounter.ResetCombo();
         _daggerHitTextScript.OnMiss();
-
-        Destroy(this.gameObject);
+		StartCoroutine(DestroyRoutine());
     }
     public void SliceComplete()
     {
-        //add score
-        //DaggerHitTextScript.EnableText(_hitText);
-        _comboCounter.IncrementCombo();
+		_daggerHitTextScript.OnHit();
+
+		//add score
+		//DaggerHitTextScript.EnableText(_hitText);
+		_comboCounter.IncrementCombo();
         _daggerHitTextScript.OnHit();
 
-        Destroy(this.gameObject);
+		GetComponent<Animator>().SetTrigger("Hit");
+
+		StartCoroutine(DestroyRoutine());
     }
 
+	public IEnumerator DestroyRoutine()
+	{
+		foreach(var col in GetComponentsInChildren<Collider>())
+		{
+			col.enabled = false;
+		}
 
+		enabled = false;
+
+		GetComponent<Animator>().SetBool("Visible", false);
+
+		yield return new WaitForSeconds(1.5f);
+
+		Destroy(gameObject);
+	}
 }

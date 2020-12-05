@@ -19,6 +19,12 @@ public struct DialogueData
 	public GameObject[] events;
 }
 
+[Serializable]
+public struct ChoiceData
+{
+	public string text;
+}
+
 public class SkillCheck
 {
 
@@ -29,5 +35,6 @@ public class DialogueBranch : ScriptableObject
 {
 	public DialogueData[] dialogues = new DialogueData[1];
 	public SkillCheck skillCheck;
+	public ChoiceData[] choices;
 	public DialogueBranch[] nextBranches;
 }
