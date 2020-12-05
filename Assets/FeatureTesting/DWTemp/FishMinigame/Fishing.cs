@@ -15,6 +15,8 @@ public class Fishing : MonoBehaviour
     public Slider fishSlider;
     public Slider fishhookSlider;
     [SerializeField] private Text _distanceText;
+    [SerializeField] private Transform _shadowTransform;
+    [SerializeField, Range(0f, 1f)] private float _baseShadowVisiblity;
 
     [Header("Throw")]
     public Vector2 maxInitialVelocity;
@@ -36,6 +38,7 @@ public class Fishing : MonoBehaviour
     public float unfavorablePositionalSpeed = 0.4f;
     public float favorablePositionalSpeed = 0.4f;
     public float constantUnfavorablePositionalSpeed = 0.01f;
+    [Range(0f, 1f)] public float panicChance = 0.1f;
 
 
     // Start is called before the first frame update
@@ -49,12 +52,22 @@ public class Fishing : MonoBehaviour
         body.gravityScale = 0;
     }
 
+    private float GetHeightPercentage
+    {
+        get
+        {
+            return Mathf.Clamp((transform.position.y - transform.localScale.y / 2) / FishGameManager.Instance.bounds.down, 0f, 1f);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         stateMachine.Update();
         //print(stateMachine.currentState.ToString());
         _distanceText.text = string.Format("{0:0.}", transform.position.x - FishGameManager.Instance.bounds.left) + "m";
+        _shadowTransform.position = new Vector3(_shadowTransform.position.x, FishGameManager.Instance.bounds.down, _shadowTransform.position.z);
+        _shadowTransform.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, Mathf.Clamp(GetHeightPercentage + _baseShadowVisiblity, 0f, 1f));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -159,12 +172,10 @@ public class ReelInState : State<Fishing>
             owner.stateMachine.ChangeState(new SuccessState());
         }
 
-        if (owner.body.position.y <= FishGameManager.Instance.bounds.down)
+        if (owner.body.position.y <= FishGameManager.Instance.bounds.down + owner.transform.localScale.y / 2)
         {
             owner.stateMachine.ChangeState(new FailState());
         }
-        Debug.Log(owner.body.position.y);
-        Debug.Log(FishGameManager.Instance.bounds.down + owner.transform.localScale.y);
     }
 }
 public class AnglingState : State<Fishing>
@@ -181,6 +192,7 @@ public class AnglingState : State<Fishing>
     private float _fishValue;
     private float _playerBarValue = 0;
     private float _positionPercentage = 1;
+    private float _
 
     private float _fishSpeed;
     public float FishSpeed { get { return _fishSpeed; } }
@@ -292,10 +304,7 @@ public class AnglingState : State<Fishing>
 
             if (_timer.Expired)
             {
-                if (owner.FishBarValue > 0.5f && Random.Range(0f, 1f) >= 0.7f)
-                    owner.stateMachine.ChangeState(new FishPanicState());
-                else
-                    owner.stateMachine.ChangeState(new FishChillState());
+                owner.stateMachine.ChangeState(new FishChillState());
             }
         }
     }
@@ -320,7 +329,12 @@ public class AnglingState : State<Fishing>
         {
             _timer += Time.deltaTime;
             if (_timer.Expired)
-                owner.stateMachine.ChangeState(new FishResistState());
+            {
+                if (owner.FishBarValue > 0.7f && Random.Range(0f, 1f) >= 1 - owner.)
+                    owner.stateMachine.ChangeState(new FishPanicState());
+                else
+                    owner.stateMachine.ChangeState(new FishResistState());
+            }
         }
     }
     public class FishPanicState : State<AnglingState>
@@ -375,6 +389,7 @@ public class FailState : State<Fishing>
     {
         Debug.Log("failed :(");
         owner.body.gravityScale = 0;
+        owner.body.velocity = Vector2.zero;
     }
     public override void ExitState(Fishing owner)
     {
